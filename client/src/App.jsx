@@ -9,14 +9,14 @@ export default function App() {
 
 	useEffect(() => {
 		axios
-			.get('http://localhost:5000/api/items')
+			.get('http://localhost:4000/api/items')
 			.then((response) => setItems(response.data))
 			.catch((error) => console.error('Error fetching items:', error));
 	}, []);
 
 	const addItem = async () => {
 		try {
-			const response = await axios.post('http://localhost:5000/api/items', {
+			const response = await axios.post('http://localhost:4000/api/items', {
 				name,
 				description,
 			});
