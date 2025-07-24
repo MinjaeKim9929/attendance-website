@@ -1,11 +1,58 @@
-body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-		'Droid Sans', 'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+@font-face {
+	font-family: 'Nunito';
+	src: url('../public/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Raleway';
+	src: url('../public/fonts/Raleway-VariableFont_wght.ttf') format('truetype');
+}
+
+:root {
+	--primary-100: #566a8e;
+	--primary-200: #8498be;
+	--primary-300: #e8fbff;
+	--accent-100: #ffc107;
+	--accent-200: #916400;
+	--text-100: #333333;
+	--text-200: #5c5c5c;
+	--bg-100: #f2f2f2;
+	--bg-200: #e8e8e8;
+	--bg-300: #bfbfbf;
+}
+
+/* [data-theme='dark'] {
+	--primary-100: #566a8e;
+	--primary-200: #8498be;
+	--primary-300: #e8fbff;
+	--accent-100: #c4d0e1;
+	--accent-200: #657180;
+	--text-100: #ffffff;
+	--text-200: #e0e0e0;
+	--bg-100: #1a1a1a;
+	--bg-200: #292929;
+	--bg-300: #404040;
+} */
+
+html {
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	font-family: Nunito, sans-serif;
+	color: var(--text-100);
+	background-color: var(--bg-100);
+}
+
+#root {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }

@@ -1,11 +1,10 @@
-body,
-html {
-	min-height: 100vh;
-	margin: 0;
-}
-
-#root {
+.layout {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+}
+
+.layout main {
+	flex: 1;
+	padding: 0;
 }
