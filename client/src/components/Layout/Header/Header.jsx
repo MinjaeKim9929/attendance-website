@@ -19,6 +19,7 @@ export default function Header() {
 			</div>
 			<nav className="navigation">
 				<ul className="desktop-menu">
+					<li>Home</li>
 					<li>Features</li>
 					<li>About</li>
 					<li>
