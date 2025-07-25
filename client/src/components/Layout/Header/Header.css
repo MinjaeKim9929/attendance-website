@@ -82,10 +82,6 @@
 	position: relative;
 }
 
-.navigation li:first-child {
-	font-weight: 800;
-}
-
 .nav-link {
 	color: var(--text-100);
 	text-decoration: none;
@@ -93,6 +89,10 @@
 	font-size: 1rem;
 	transition: color 0.2s ease;
 	position: relative;
+}
+
+.nav-home {
+	font-weight: 800;
 }
 
 .nav-link:hover {
