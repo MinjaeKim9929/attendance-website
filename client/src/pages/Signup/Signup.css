@@ -1,3 +1,5 @@
+@import '@fortawesome/fontawesome-free/css/all.css';
+
 .signup-container {
 	display: flex;
 	justify-content: center;
@@ -14,6 +16,7 @@
 	width: 100%;
 	max-width: 550px;
 	border: 1px solid var(--bg-200);
+	position: relative;
 }
 
 .signup-header {
@@ -32,6 +35,156 @@
 	color: var(--text-200);
 	font-size: 1rem;
 	margin: 0;
+}
+
+.role-selection {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.5rem;
+	margin-bottom: 2rem;
+}
+
+.role-option {
+	border: 2px solid var(--bg-200);
+	border-radius: 16px;
+	padding: 2rem 1.5rem;
+	text-align: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	background: white;
+	position: relative;
+	overflow: hidden;
+}
+
+.role-option:hover {
+	border-color: var(--primary-100);
+	transform: translateY(-4px);
+	box-shadow: 0 12px 35px rgba(86, 106, 142, 0.2);
+}
+
+.role-option:hover .role-icon {
+	transform: scale(1.1);
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.role-option:active {
+	transform: translateY(-2px);
+}
+
+.role-icon {
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	margin: 0 auto 1rem auto;
+	position: relative;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.role-icon i {
+	color: white;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
+	position: relative;
+	z-index: 2;
+}
+
+.admin-icon {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.user-icon {
+	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.role-option h3 {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: var(--text-100);
+	margin: 0 0 0.5rem 0;
+	transition: color 0.3s ease;
+}
+
+.role-option:hover h3 {
+	color: var(--primary-100);
+}
+
+.role-option p {
+	color: var(--text-200);
+	font-size: 0.95rem;
+	margin: 0 0 1rem 0;
+	transition: color 0.3s ease;
+}
+
+.role-option:hover p {
+	color: var(--text-100);
+}
+
+.role-option ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+}
+
+.role-option ul li {
+	color: var(--text-200);
+	font-size: 0.85rem;
+	margin-bottom: 0.5rem;
+	padding-left: 1.2rem;
+	position: relative;
+	transition: all 0.3s ease;
+}
+
+.role-option ul li:before {
+	content: '✓';
+	color: var(--primary-100);
+	font-weight: bold;
+	position: absolute;
+	left: 0;
+	transition: all 0.3s ease;
+	transform: scale(1);
+}
+
+.role-option:hover ul li {
+	color: var(--text-100);
+}
+
+.role-option:hover ul li:before {
+	transform: scale(1.2);
+	color: #27ae60;
+}
+
+.back-button {
+	background: none;
+	border: none;
+	color: var(--primary-100);
+	font-size: 0.9rem;
+	font-weight: 600;
+	cursor: pointer;
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+	position: absolute;
+	top: 1.5rem;
+	left: 1.2rem;
+	margin-bottom: 1.5rem;
+}
+
+.back-button:hover:not(:disabled) {
+	background-color: rgba(86, 106, 142, 0.1);
+	color: var(--primary-200);
+	transform: translateX(-2px);
+}
+
+.back-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
 }
 
 .signup-form {
@@ -100,6 +253,10 @@
 	border: 1px solid rgba(231, 76, 60, 0.2);
 }
 
+form Button {
+	margin-top: 1rem;
+}
+
 .signup-footer {
 	text-align: center;
 	margin-top: 2rem;
@@ -126,6 +283,27 @@
 }
 
 /* Responsive design */
+@media (max-width: 768px) {
+	.role-selection {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.role-option {
+		padding: 1.5rem 1rem;
+	}
+
+	.role-icon {
+		width: 60px;
+		height: 60px;
+		font-size: 2rem;
+	}
+
+	.role-option h3 {
+		font-size: 1.25rem;
+	}
+}
+
 @media (max-width: 640px) {
 	.signup-container {
 		padding: 1rem;

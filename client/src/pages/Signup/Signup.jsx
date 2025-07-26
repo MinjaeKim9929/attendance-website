@@ -5,16 +5,34 @@ import Button from '../../components/Button/Button';
 import './Signup.css';
 
 export default function Signup() {
+	const [step, setStep] = useState('role-selection'); // 'role-selection' | 'signup-form'
+	const [selectedRole, setSelectedRole] = useState('');
 	const [formData, setFormData] = useState({
 		firstName: '',
 		lastName: '',
 		email: '',
 		password: '',
 		confirmPassword: '',
-		organizationName: '',
+		// Admin specific fields
+		adminCode: '',
 	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState({});
+
+	const handleRoleSelection = (role) => {
+		setSelectedRole(role);
+		setStep('signup-form');
+		// Clear form data when switching roles
+		setFormData({
+			firstName: '',
+			lastName: '',
+			email: '',
+			password: '',
+			confirmPassword: '',
+			adminCode: '',
+		});
+		setErrors({});
+	};
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -34,6 +52,7 @@ export default function Signup() {
 	const validateForm = () => {
 		const newErrors = {};
 
+		// Common validations
 		if (!formData.firstName.trim()) {
 			newErrors.firstName = 'First name is required';
 		}
@@ -60,8 +79,11 @@ export default function Signup() {
 			newErrors.confirmPassword = 'Passwords do not match';
 		}
 
-		if (!formData.organizationName.trim()) {
-			newErrors.organizationName = 'Organization name is required';
+		// Role-specific validations
+		if (selectedRole === 'admin') {
+			if (!formData.adminCode.trim()) {
+				newErrors.adminCode = 'Admin access code is required';
+			}
 		}
 
 		setErrors(newErrors);
@@ -79,6 +101,7 @@ export default function Signup() {
 			// TODO: Replace with actual API call to MongoDB
 			console.log('Signup attempt:', {
 				...formData,
+				role: selectedRole,
 				password: '[HIDDEN]',
 				confirmPassword: '[HIDDEN]',
 			});
@@ -87,7 +110,11 @@ export default function Signup() {
 			await new Promise((resolve) => setTimeout(resolve, 2000));
 
 			// Handle successful signup here
-			alert('Account created successfully! (This will be replaced with navigation)');
+			alert(
+				`${
+					selectedRole === 'admin' ? 'Admin' : 'User'
+				} account created successfully! (This will be replaced with navigation)`
+			);
 		} catch (error) {
 			console.error('Signup error:', error);
 			setErrors({ submit: 'Account creation failed. Please try again.' });
@@ -96,13 +123,89 @@ export default function Signup() {
 		}
 	};
 
+	const handleBackToRoleSelection = () => {
+		setStep('role-selection');
+		setSelectedRole('');
+		setFormData({
+			firstName: '',
+			lastName: '',
+			email: '',
+			password: '',
+			confirmPassword: '',
+			adminCode: '',
+		});
+		setErrors({});
+	};
+
+	// Role Selection Step
+	if (step === 'role-selection') {
+		return (
+			<Layout>
+				<div className="signup-container">
+					<div className="signup-card">
+						<div className="signup-header">
+							<h1>Choose Account Type</h1>
+							<p>Select the type of account you want to create</p>
+						</div>
+
+						<div className="role-selection">
+							<div className="role-option" onClick={() => handleRoleSelection('admin')}>
+								<div className="role-icon admin-icon">
+									<i className="fas fa-user-gear"></i>
+								</div>
+								<h3>Admin Account</h3>
+								<p>Full system access with management capabilities</p>
+								<ul>
+									<li>Manage users and attendance</li>
+									<li>Generate reports and analytics</li>
+									<li>Configure system settings</li>
+								</ul>
+							</div>
+
+							<div className="role-option" onClick={() => handleRoleSelection('user')}>
+								<div className="role-icon user-icon">
+									<i className="fas fa-user"></i>
+								</div>
+								<h3>User Account</h3>
+								<p>Standard access for attendance tracking</p>
+								<ul>
+									<li>Clock in/out and track attendance</li>
+									<li>View personal attendance history</li>
+									<li>Update profile information</li>
+									<li>Request time off</li>
+								</ul>
+							</div>
+						</div>
+
+						<div className="signup-footer">
+							<p>
+								Already have an account?{' '}
+								<Link to="/login" className="link">
+									Sign in here
+								</Link>
+							</p>
+						</div>
+					</div>
+				</div>
+			</Layout>
+		);
+	}
+
+	// Signup Form Step
 	return (
 		<Layout>
 			<div className="signup-container">
 				<div className="signup-card">
 					<div className="signup-header">
-						<h1>Create Account</h1>
-						<p>Join us to start managing attendance efficiently</p>
+						<button type="button" className="back-button" onClick={handleBackToRoleSelection} disabled={isLoading}>
+							←&nbsp; Back
+						</button>
+						<h1>Create {selectedRole === 'admin' ? 'Admin' : 'User'} Account</h1>
+						<p>
+							{selectedRole === 'admin'
+								? 'Set up your administrator account with management access'
+								: 'Create your user account for attendance tracking'}
+						</p>
 					</div>
 
 					<form onSubmit={handleSubmit} className="signup-form">
@@ -153,20 +256,25 @@ export default function Signup() {
 							{errors.email && <span className="error-message">{errors.email}</span>}
 						</div>
 
-						<div className="form-group">
-							<label htmlFor="organizationName">Organization Name</label>
-							<input
-								type="text"
-								id="organizationName"
-								name="organizationName"
-								value={formData.organizationName}
-								onChange={handleChange}
-								className={errors.organizationName ? 'error' : ''}
-								placeholder="Your organization or company name"
-								disabled={isLoading}
-							/>
-							{errors.organizationName && <span className="error-message">{errors.organizationName}</span>}
-						</div>
+						{/* Role-specific fields */}
+						{selectedRole === 'admin' && (
+							<>
+								<div className="form-group">
+									<label htmlFor="adminCode">Admin Access Code</label>
+									<input
+										type="password"
+										id="adminCode"
+										name="adminCode"
+										value={formData.adminCode}
+										onChange={handleChange}
+										className={errors.adminCode ? 'error' : ''}
+										placeholder="Enter admin access code"
+										disabled={isLoading}
+									/>
+									{errors.adminCode && <span className="error-message">{errors.adminCode}</span>}
+								</div>
+							</>
+						)}
 
 						<div className="form-row">
 							<div className="form-group">
@@ -203,7 +311,7 @@ export default function Signup() {
 						{errors.submit && <div className="error-message submit-error">{errors.submit}</div>}
 
 						<Button type="submit" variant="primary" size="large" loading={isLoading} style={{ width: '100%' }}>
-							Create Account
+							Create {selectedRole === 'admin' ? 'Admin' : 'User'} Account
 						</Button>
 					</form>
 
