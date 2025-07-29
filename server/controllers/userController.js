@@ -95,6 +95,76 @@ const loginUser = asyncHandler(async (req, res) => {
 	}
 });
 
+// @desc    Get current user profile
+// @route   GET /api/users/me
+// @access  Private
+const getMe = asyncHandler(async (req, res) => {
+	res.status(200).json({
+		success: true,
+		data: {
+			_id: req.user._id,
+			firstName: req.user.firstName,
+			lastName: req.user.lastName,
+			email: req.user.email,
+			role: req.user.role,
+			dateOfBirth: req.user.dateOfBirth,
+			createdAt: req.user.createdAt,
+			updatedAt: req.user.updatedAt,
+		},
+	});
+});
+
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+const updateProfile = asyncHandler(async (req, res) => {
+	const { firstName, lastName, dateOfBirth } = req.body;
+
+	const user = await User.findById(req.user._id);
+
+	if (!user) {
+		res.status(404);
+		throw new Error('User not found');
+	}
+
+	// Update fields if provided
+	if (firstName) user.firstName = firstName;
+	if (lastName) user.lastName = lastName;
+	if (dateOfBirth) {
+		const dob = new Date(dateOfBirth);
+		if (isNaN(dob.getTime())) {
+			res.status(400);
+			throw new Error('Invalid date of birth');
+		}
+
+		// Check age requirement
+		const today = new Date();
+		const minAge = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+		if (dob > minAge) {
+			res.status(400);
+			throw new Error('User must be at least 16 years old');
+		}
+
+		user.dateOfBirth = dob;
+	}
+
+	const updatedUser = await user.save();
+
+	res.status(200).json({
+		success: true,
+		message: 'Profile updated successfully',
+		data: {
+			_id: updatedUser._id,
+			firstName: updatedUser.firstName,
+			lastName: updatedUser.lastName,
+			email: updatedUser.email,
+			role: updatedUser.role,
+			dateOfBirth: updatedUser.dateOfBirth,
+			updatedAt: updatedUser.updatedAt,
+		},
+	});
+});
+
 // @desc    Get user list
 // @route   GET /api/users/list
 // @access  Private
@@ -115,5 +185,7 @@ const getUserList = asyncHandler(async (req, res) => {
 module.exports = {
 	signupUser,
 	loginUser,
+	getMe,
+	updateProfile,
 	getUserList,
 };
