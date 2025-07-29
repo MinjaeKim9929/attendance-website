@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
+import axios from 'axios';
 import './Signup.css';
 
 export default function Signup() {
+	const navigate = useNavigate();
 	const [step, setStep] = useState('role-selection'); // 'role-selection' | 'signup-form'
 	const [selectedRole, setSelectedRole] = useState('');
 	const [formData, setFormData] = useState({
@@ -13,6 +15,7 @@ export default function Signup() {
 		email: '',
 		password: '',
 		confirmPassword: '',
+		dateOfBirth: '',
 		// Admin specific fields
 		adminCode: '',
 	});
@@ -29,6 +32,7 @@ export default function Signup() {
 			email: '',
 			password: '',
 			confirmPassword: '',
+			dateOfBirth: '',
 			adminCode: '',
 		});
 		setErrors({});
@@ -52,7 +56,6 @@ export default function Signup() {
 	const validateForm = () => {
 		const newErrors = {};
 
-		// Common validations
 		if (!formData.firstName.trim()) {
 			newErrors.firstName = 'First name is required';
 		}
@@ -79,7 +82,10 @@ export default function Signup() {
 			newErrors.confirmPassword = 'Passwords do not match';
 		}
 
-		// Role-specific validations
+		if (!formData.dateOfBirth) {
+			newErrors.dateOfBirth = 'Date of birth is required';
+		}
+
 		if (selectedRole === 'admin') {
 			if (!formData.adminCode.trim()) {
 				newErrors.adminCode = 'Admin access code is required';
@@ -98,26 +104,31 @@ export default function Signup() {
 		setIsLoading(true);
 
 		try {
-			// TODO: Replace with actual API call to MongoDB
-			console.log('Signup attempt:', {
-				...formData,
+			const userData = {
+				firstName: formData.firstName,
+				lastName: formData.lastName,
+				email: formData.email,
+				password: formData.password,
 				role: selectedRole,
-				password: '[HIDDEN]',
-				confirmPassword: '[HIDDEN]',
-			});
+				dateOfBirth: formData.dateOfBirth,
+			};
 
-			// Simulate API call
-			await new Promise((resolve) => setTimeout(resolve, 2000));
+			// Add admin code for admin users
+			if (selectedRole === 'admin') {
+				userData.adminCode = formData.adminCode;
+			}
 
-			// Handle successful signup here
-			alert(
-				`${
-					selectedRole === 'admin' ? 'Admin' : 'User'
-				} account created successfully! (This will be replaced with navigation)`
-			);
-		} catch (error) {
-			console.error('Signup error:', error);
-			setErrors({ submit: 'Account creation failed. Please try again.' });
+			const response = await axios.post('http://localhost:4000/api/users/signup', userData);
+
+			navigate('/dashboard');
+		} catch (err) {
+			console.error('Signup error:', err);
+
+			if (err.response?.data?.message) {
+				setErrors({ submit: err.response.data.message });
+			} else {
+				setErrors({ submit: 'An error occurred during signup. Please try again.' });
+			}
 		} finally {
 			setIsLoading(false);
 		}
@@ -132,6 +143,7 @@ export default function Signup() {
 			email: '',
 			password: '',
 			confirmPassword: '',
+			dateOfBirth: '',
 			adminCode: '',
 		});
 		setErrors({});
@@ -149,19 +161,6 @@ export default function Signup() {
 						</div>
 
 						<div className="role-selection">
-							<div className="role-option" onClick={() => handleRoleSelection('admin')}>
-								<div className="role-icon admin-icon">
-									<i className="fas fa-user-gear"></i>
-								</div>
-								<h3>Admin Account</h3>
-								<p>Full system access with management capabilities</p>
-								<ul>
-									<li>Manage users and attendance</li>
-									<li>Generate reports and analytics</li>
-									<li>Configure system settings</li>
-								</ul>
-							</div>
-
 							<div className="role-option" onClick={() => handleRoleSelection('user')}>
 								<div className="role-icon user-icon">
 									<i className="fas fa-user"></i>
@@ -173,6 +172,19 @@ export default function Signup() {
 									<li>View personal attendance history</li>
 									<li>Update profile information</li>
 									<li>Request time off</li>
+								</ul>
+							</div>
+
+							<div className="role-option" onClick={() => handleRoleSelection('admin')}>
+								<div className="role-icon admin-icon">
+									<i className="fas fa-user-gear"></i>
+								</div>
+								<h3>Admin Account</h3>
+								<p>Full system access with management capabilities</p>
+								<ul>
+									<li>Manage users and attendance</li>
+									<li>Generate reports and analytics</li>
+									<li>Configure system settings</li>
 								</ul>
 							</div>
 						</div>
@@ -240,7 +252,6 @@ export default function Signup() {
 								{errors.lastName && <span className="error-message">{errors.lastName}</span>}
 							</div>
 						</div>
-
 						<div className="form-group">
 							<label htmlFor="email">Email Address</label>
 							<input
@@ -254,6 +265,20 @@ export default function Signup() {
 								disabled={isLoading}
 							/>
 							{errors.email && <span className="error-message">{errors.email}</span>}
+						</div>
+						<div className="form-group">
+							<label htmlFor="dateOfBirth">Date of Birth</label>
+							<input
+								type="date"
+								id="dateOfBirth"
+								name="dateOfBirth"
+								value={formData.dateOfBirth}
+								onChange={handleChange}
+								className={errors.dateOfBirth ? 'error' : ''}
+								disabled={isLoading}
+								max={new Date().toISOString().split('T')[0]} // Prevent future dates
+							/>
+							{errors.dateOfBirth && <span className="error-message">{errors.dateOfBirth}</span>}
 						</div>
 
 						{/* Role-specific fields */}
@@ -275,7 +300,6 @@ export default function Signup() {
 								</div>
 							</>
 						)}
-
 						<div className="form-row">
 							<div className="form-group">
 								<label htmlFor="password">Password</label>
@@ -307,9 +331,7 @@ export default function Signup() {
 								{errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
 							</div>
 						</div>
-
 						{errors.submit && <div className="error-message submit-error">{errors.submit}</div>}
-
 						<Button type="submit" variant="primary" size="large" loading={isLoading} style={{ width: '100%' }}>
 							Create {selectedRole === 'admin' ? 'Admin' : 'User'} Account
 						</Button>

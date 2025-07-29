@@ -1,0 +1,593 @@
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+.home-container {
+	width: 100%;
+	overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero-section {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	padding: 6rem 2rem;
+	position: relative;
+	overflow: hidden;
+}
+
+.hero-section::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+	opacity: 0.3;
+	animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+.hero-content {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 4rem;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+}
+
+.hero-text h1 {
+	font-size: 3.5rem;
+	font-weight: 800;
+	line-height: 1.1;
+	margin-bottom: 1.5rem;
+}
+.gradient-text {
+	background: linear-gradient(45deg, #00f5ff 0%, #ff6b9d 50%, #ffd700 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	display: inline-block;
+	animation: shimmer 3s ease-in-out infinite alternate;
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 100% 50%;
+	}
+}
+
+.hero-description {
+	font-size: 1.25rem;
+	line-height: 1.6;
+	margin-bottom: 2.5rem;
+	opacity: 0.9;
+}
+
+.hero-actions {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}
+
+.hero-actions button[class*='primary'] {
+	border: 2px solid var(--primary-300);
+}
+
+.button-icon {
+	margin-left: 0.5rem;
+	transition: transform 0.2s ease;
+}
+
+.hero-actions button:hover .button-icon {
+	transform: translateX(3px);
+}
+
+/* Dashboard Preview */
+.hero-visual {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.dashboard-preview {
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 20px;
+	padding: 1.5rem;
+	width: 100%;
+	max-width: 400px;
+	animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.dashboard-header {
+	margin-bottom: 1.5rem;
+}
+
+.dashboard-nav {
+	display: flex;
+	gap: 1rem;
+}
+
+.nav-item {
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	opacity: 0.7;
+	transition: all 0.2s ease;
+}
+
+.nav-item.active {
+	background: rgba(255, 255, 255, 0.2);
+	opacity: 1;
+}
+
+.dashboard-content {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.stat-card {
+	background: rgba(255, 255, 255, 0.15);
+	padding: 1rem;
+	border-radius: 12px;
+	text-align: center;
+}
+
+.stat-number {
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin-bottom: 0.25rem;
+}
+
+.stat-label {
+	font-size: 0.8rem;
+	opacity: 0.8;
+}
+
+.chart-placeholder {
+	grid-column: 1 / -1;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 12px;
+	padding: 1rem;
+	height: 80px;
+}
+
+.chart-bars {
+	display: flex;
+	align-items: end;
+	gap: 0.5rem;
+	height: 100%;
+}
+
+.bar {
+	background: linear-gradient(150deg, #00f5ff 0%, #ff6b9d 50%, #ffd700 100%);
+	border-radius: 4px 4px 0 0;
+	flex: 1;
+	animation: growUp 1s ease-out forwards;
+	transform: scaleY(0);
+	transform-origin: bottom;
+}
+
+.bar:nth-child(1) {
+	animation-delay: 0.1s;
+}
+.bar:nth-child(2) {
+	animation-delay: 0.2s;
+}
+.bar:nth-child(3) {
+	animation-delay: 0.3s;
+}
+.bar:nth-child(4) {
+	animation-delay: 0.4s;
+}
+.bar:nth-child(5) {
+	animation-delay: 0.5s;
+}
+
+@keyframes growUp {
+	to {
+		transform: scaleY(1);
+	}
+}
+
+/* Section Headers */
+.section-header {
+	text-align: center;
+	max-width: 600px;
+	margin: 0 auto 4rem auto;
+}
+
+.section-header h2 {
+	font-size: 2.5rem;
+	font-weight: 700;
+	color: var(--text-100);
+	margin-bottom: 1rem;
+}
+
+.section-header p {
+	font-size: 1.1rem;
+	color: var(--text-200);
+	line-height: 1.6;
+}
+
+/* Account Types Section */
+.account-types-section {
+	padding: 6rem 2rem;
+	background: var(--bg-50);
+}
+
+.account-types {
+	max-width: 800px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 3rem;
+}
+
+.account-type-card {
+	background: white;
+	border-radius: 24px;
+	padding: 3rem 2rem 2rem;
+	text-align: center;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+	border: 2px solid transparent;
+	transition: all 0.3s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+.account-type-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.account-type-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.admin-card::before {
+	background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.user-card::before {
+	background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+}
+
+.account-icon {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 1.5rem auto;
+	font-size: 2rem;
+	color: white;
+}
+
+.admin-card .account-icon {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.user-card .account-icon {
+	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.account-type-card h3 {
+	font-size: 1.75rem;
+	font-weight: 700;
+	color: var(--text-100);
+	margin-bottom: 1rem;
+}
+
+.account-type-card p {
+	color: var(--text-200);
+	margin-bottom: 2rem;
+	line-height: 1.6;
+}
+
+.account-features {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 2rem 0;
+	text-align: left;
+}
+
+.account-features li {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.5rem 0;
+	color: var(--text-200);
+	font-size: 0.95rem;
+}
+
+.account-features li svg {
+	color: var(--primary-100);
+	font-size: 1rem;
+}
+
+/* Features Section */
+.features-section {
+	padding: 6rem 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.features-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 2rem;
+}
+
+.feature-card {
+	background: white;
+	padding: 2.5rem 2rem;
+	border-radius: 20px;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	transition: all 0.3s ease;
+	border: 1px solid var(--bg-200);
+}
+
+.feature-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+}
+
+.feature-icon {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-200) 100%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 1.5rem auto;
+	color: white;
+	font-size: 1.5rem;
+}
+
+.feature-card h3 {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: var(--text-100);
+	margin-bottom: 1rem;
+}
+
+.feature-card p {
+	color: var(--text-200);
+	line-height: 1.6;
+}
+
+/* Benefits Section */
+.benefits-section {
+	padding: 6rem 2rem;
+	background: linear-gradient(135deg, #f8f9fc 0%, #e8f0fe 100%);
+}
+
+.benefits-content {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 4rem;
+	align-items: center;
+}
+
+.benefits-text h2 {
+	font-size: 2.5rem;
+	font-weight: 700;
+	color: var(--text-100);
+	margin-bottom: 1rem;
+}
+
+.benefits-text p {
+	font-size: 1.1rem;
+	color: var(--text-200);
+	margin-bottom: 2rem;
+	line-height: 1.6;
+}
+
+.benefits-list {
+	margin-bottom: 2.5rem;
+}
+
+.benefit-item {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.75rem 0;
+	font-size: 1rem;
+	color: var(--text-100);
+}
+
+.benefit-icon {
+	color: #10b981;
+	font-size: 1.1rem;
+}
+
+.stats-showcase {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2rem;
+}
+
+.showcase-stat {
+	background: white;
+	padding: 2rem;
+	border-radius: 20px;
+	text-align: center;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.stat-value {
+	font-size: 2.5rem;
+	font-weight: 800;
+	color: var(--primary-100);
+	margin-bottom: 0.5rem;
+}
+
+.stat-desc {
+	color: var(--text-200);
+	font-weight: 600;
+}
+
+/* CTA Section */
+.cta-section {
+	padding: 6rem 2rem;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	text-align: center;
+}
+
+.cta-content {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.cta-content h2 {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+}
+
+.cta-content p {
+	font-size: 1.1rem;
+	margin-bottom: 2.5rem;
+	opacity: 0.9;
+	line-height: 1.6;
+}
+
+.cta-actions {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.cta-link {
+	color: rgba(255, 255, 255, 0.8);
+	text-decoration: none;
+	font-weight: 600;
+	transition: color 0.2s ease;
+}
+
+.cta-link:hover {
+	color: white;
+	text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+	.hero-content,
+	.benefits-content {
+		grid-template-columns: 1fr;
+		gap: 3rem;
+		text-align: center;
+	}
+
+	.hero-text h1 {
+		font-size: 3rem;
+	}
+
+	.account-types {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.hero-section {
+		padding: 4rem 1rem;
+	}
+
+	.hero-text h1 {
+		font-size: 2.5rem;
+	}
+
+	.hero-description {
+		font-size: 1.1rem;
+	}
+
+	.hero-actions {
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.hero-actions button,
+	.hero-actions a {
+		width: 100%;
+	}
+
+	.section-header h2 {
+		font-size: 2rem;
+	}
+
+	.features-section,
+	.benefits-section,
+	.account-types-section {
+		padding: 4rem 1rem;
+	}
+
+	.stats-showcase {
+		grid-template-columns: 1fr;
+	}
+
+	.cta-section {
+		padding: 4rem 1rem;
+	}
+
+	.cta-content h2 {
+		font-size: 2rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.dashboard-content {
+		grid-template-columns: 1fr;
+	}
+
+	.account-type-card {
+		padding: 2rem 1.5rem;
+	}
+
+	.feature-card {
+		padding: 2rem 1.5rem;
+	}
+}

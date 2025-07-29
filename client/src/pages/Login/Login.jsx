@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
+import axios from 'axios';
 import './Login.css';
 
 export default function Login() {
@@ -11,6 +12,8 @@ export default function Login() {
 	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState({});
+
+	const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -48,20 +51,13 @@ export default function Login() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
 		if (!validateForm()) return;
 
 		setIsLoading(true);
 
 		try {
-			// TODO: Replace with actual API call to MongoDB
-			console.log('Login attempt:', formData);
-
-			// Simulate API call
-			await new Promise((resolve) => setTimeout(resolve, 2000));
-
-			// Handle successful login here
-			alert('Login successful! (This will be replaced with navigation)');
+			await axios.post('http://localhost:4000/api/users/login', formData);
+			navigate('/dashboard');
 		} catch (error) {
 			console.error('Login error:', error);
 			setErrors({ submit: 'Login failed. Please try again.' });
