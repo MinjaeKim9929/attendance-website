@@ -2,80 +2,45 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
+import './Unauthorized.css';
 
-const Unauthorized = () => {
+export default function Unauthorized() {
 	return (
 		<Layout>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-					justifyContent: 'center',
-					minHeight: '70vh',
-					padding: '3rem',
-					textAlign: 'center',
-				}}
-			>
-				<div
-					style={{
-						fontSize: '6rem',
-						fontWeight: '900',
-						background: 'linear-gradient(135deg, #e74c3c, #c0392b)',
-						WebkitBackgroundClip: 'text',
-						WebkitTextFillColor: 'transparent',
-						backgroundClip: 'text',
-						marginBottom: '1rem',
-					}}
-				>
-					403
+			<div className="unauthorized-container">
+				<div className="error-illustration">
+					<svg viewBox="0 0 200 200" className="unauthorized-svg">
+						<circle cx="100" cy="100" r="80" fill="var(--primary-300)" opacity="0.3" />
+						<circle cx="100" cy="100" r="60" fill="var(--primary-200)" opacity="0.5" />
+						<circle cx="100" cy="100" r="40" fill="var(--primary-100)" opacity="0.7" />
+						<text x="100" y="110" textAnchor="middle" fontSize="24" fill="white" fontWeight="bold">
+							AW
+						</text>
+					</svg>
 				</div>
 
-				<h1
-					style={{
-						fontSize: '2.5rem',
-						fontWeight: '700',
-						color: 'var(--text-100)',
-						margin: '0 0 1rem 0',
-					}}
-				>
-					Unauthorized Access
-				</h1>
+				<div className="unauthorized-content">
+					<div className="error-code">403</div>
+					<h1 className="error-title">Unauthorized Access</h1>
+					<p className="error-description">
+						You don't have permission to access this page. Please contact your administrator if you believe this is an
+						error.
+					</p>
 
-				<p
-					style={{
-						fontSize: '1.1rem',
-						color: 'var(--text-200)',
-						marginBottom: '2.5rem',
-						maxWidth: '500px',
-					}}
-				>
-					You don't have permission to access this page. Please contact your administrator if you believe this is an
-					error.
-				</p>
-
-				<div
-					style={{
-						display: 'flex',
-						gap: '1rem',
-						flexWrap: 'wrap',
-						justifyContent: 'center',
-					}}
-				>
-					<Link to="/dashboard">
-						<Button variant="primary" size="large">
-							Go to Dashboard
-						</Button>
-					</Link>
-					<Link to="/">
-						<Button variant="secondary" size="large">
-							Go Home
-						</Button>
-					</Link>
+					<div className="error-actions">
+						<Link to="/dashboard">
+							<Button variant="primary" size="large">
+								Go to Dashboard
+							</Button>
+						</Link>
+						<Link to="/">
+							<Button variant="secondary" size="large">
+								Go Home
+							</Button>
+						</Link>
+					</div>
 				</div>
 			</div>
 		</Layout>
 	);
-};
-
-export default Unauthorized;
+}
