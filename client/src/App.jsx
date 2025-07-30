@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Unauthorized from './pages/Unauthorized/Unauthorized';
-import Dashboard from './pages/dashboard/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 import NotFound from './pages/NotFound/NotFound';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
