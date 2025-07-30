@@ -1,10 +1,10 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 
-export default function ConsoleHome() {
+export default function Dashboard() {
 	return (
 		<Layout>
-			<div>Console Home</div>
+			<div>Home</div>
 		</Layout>
 	);
 }

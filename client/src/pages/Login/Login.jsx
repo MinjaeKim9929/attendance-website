@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
-import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
 import './Login.css';
 
 export default function Login() {
@@ -10,10 +10,24 @@ export default function Login() {
 		email: '',
 		password: '',
 	});
-	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState({});
 
 	const navigate = useNavigate();
+	const location = useLocation();
+	const { login, isLoading, isAuthenticated, error, clearError } = useAuth();
+
+	// Redirect if already authenticated
+	useEffect(() => {
+		if (isAuthenticated) {
+			const from = location.state?.from?.pathname || '/dashboard';
+			navigate(from, { replace: true });
+		}
+	}, [isAuthenticated, navigate, location]);
+
+	// Clear errors when component mounts
+	useEffect(() => {
+		clearError();
+	}, [clearError]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -27,6 +41,10 @@ export default function Login() {
 				...prev,
 				[name]: '',
 			}));
+		}
+		// Clear auth error
+		if (error) {
+			clearError();
 		}
 	};
 
@@ -53,17 +71,13 @@ export default function Login() {
 		e.preventDefault();
 		if (!validateForm()) return;
 
-		setIsLoading(true);
+		const result = await login(formData.email, formData.password);
 
-		try {
-			await axios.post('http://localhost:4000/api/users/login', formData);
-			navigate('/dashboard');
-		} catch (error) {
-			console.error('Login error:', error);
-			setErrors({ submit: 'Login failed. Please try again.' });
-		} finally {
-			setIsLoading(false);
+		if (result.success) {
+			const from = location.state?.from?.pathname || '/dashboard';
+			navigate(from, { replace: true });
 		}
+		// Error is handled by the auth context
 	};
 
 	return (
@@ -106,7 +120,7 @@ export default function Login() {
 							{errors.password && <span className="error-message">{errors.password}</span>}
 						</div>
 
-						{errors.submit && <div className="error-message submit-error">{errors.submit}</div>}
+						{error && <div className="error-message submit-error">{error}</div>}
 
 						<Button type="submit" variant="primary" size="large" loading={isLoading} style={{ width: '100%' }}>
 							Sign In

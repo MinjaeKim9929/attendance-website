@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
-import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
 import './Signup.css';
 
 export default function Signup() {
 	const navigate = useNavigate();
+	const { signup, isLoading, isAuthenticated, error, clearError } = useAuth();
+
 	const [step, setStep] = useState('role-selection'); // 'role-selection' | 'signup-form'
 	const [selectedRole, setSelectedRole] = useState('');
 	const [formData, setFormData] = useState({
@@ -19,8 +21,19 @@ export default function Signup() {
 		// Admin specific fields
 		adminCode: '',
 	});
-	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState({});
+
+	// Redirect if already authenticated
+	useEffect(() => {
+		if (isAuthenticated) {
+			navigate('/dashboard', { replace: true });
+		}
+	}, [isAuthenticated, navigate]);
+
+	// Clear errors when component mounts
+	useEffect(() => {
+		clearError();
+	}, [clearError]);
 
 	const handleRoleSelection = (role) => {
 		setSelectedRole(role);
@@ -36,6 +49,7 @@ export default function Signup() {
 			adminCode: '',
 		});
 		setErrors({});
+		clearError();
 	};
 
 	const handleChange = (e) => {
@@ -50,6 +64,10 @@ export default function Signup() {
 				...prev,
 				[name]: '',
 			}));
+		}
+		// Clear auth error
+		if (error) {
+			clearError();
 		}
 	};
 
@@ -101,37 +119,26 @@ export default function Signup() {
 
 		if (!validateForm()) return;
 
-		setIsLoading(true);
+		const userData = {
+			firstName: formData.firstName,
+			lastName: formData.lastName,
+			email: formData.email,
+			password: formData.password,
+			role: selectedRole,
+			dateOfBirth: formData.dateOfBirth,
+		};
 
-		try {
-			const userData = {
-				firstName: formData.firstName,
-				lastName: formData.lastName,
-				email: formData.email,
-				password: formData.password,
-				role: selectedRole,
-				dateOfBirth: formData.dateOfBirth,
-			};
-
-			// Add admin code for admin users
-			if (selectedRole === 'admin') {
-				userData.adminCode = formData.adminCode;
-			}
-
-			const response = await axios.post('http://localhost:4000/api/users/signup', userData);
-
-			navigate('/dashboard');
-		} catch (err) {
-			console.error('Signup error:', err);
-
-			if (err.response?.data?.message) {
-				setErrors({ submit: err.response.data.message });
-			} else {
-				setErrors({ submit: 'An error occurred during signup. Please try again.' });
-			}
-		} finally {
-			setIsLoading(false);
+		// Add admin code for admin users
+		if (selectedRole === 'admin') {
+			userData.adminCode = formData.adminCode;
 		}
+
+		const result = await signup(userData);
+
+		if (result.success) {
+			navigate('/dashboard', { replace: true });
+		}
+		// Error is handled by the auth context
 	};
 
 	const handleBackToRoleSelection = () => {
@@ -147,6 +154,7 @@ export default function Signup() {
 			adminCode: '',
 		});
 		setErrors({});
+		clearError();
 	};
 
 	// Role Selection Step
@@ -331,7 +339,7 @@ export default function Signup() {
 								{errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
 							</div>
 						</div>
-						{errors.submit && <div className="error-message submit-error">{errors.submit}</div>}
+						{error && <div className="error-message submit-error">{error}</div>}
 						<Button type="submit" variant="primary" size="large" loading={isLoading} style={{ width: '100%' }}>
 							Create {selectedRole === 'admin' ? 'Admin' : 'User'} Account
 						</Button>

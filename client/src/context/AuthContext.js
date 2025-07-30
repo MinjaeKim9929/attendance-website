@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 //  Initial state
@@ -77,18 +77,19 @@ export const AuthProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(authReducer, initialState);
 
 	// Set auth token in axios header
-	const setAuthToken = (token) => {
+	const setAuthToken = useCallback((token) => {
 		if (token) {
 			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 		} else {
 			delete axios.defaults.headers.common['Authorization'];
 		}
-	};
+	}, []);
 
 	// Load user on app start
-	const loadUser = async () => {
-		if (state.token) {
-			setAuthToken(state.token);
+	const loadUser = useCallback(async () => {
+		const token = localStorage.getItem('token'); // Get token directly from localStorage
+		if (token) {
+			setAuthToken(token);
 			try {
 				const res = await axios.get('http://localhost:4000/api/users/me');
 				dispatch({
@@ -104,80 +105,86 @@ export const AuthProvider = ({ children }) => {
 		} else {
 			dispatch({ type: 'SET_LOADING', payload: false });
 		}
-	};
+	}, [setAuthToken]);
 
 	// Login user
-	const login = async (email, password) => {
-		dispatch({ type: 'SET_LOADING', payload: true });
+	const login = useCallback(
+		async (email, password) => {
+			dispatch({ type: 'SET_LOADING', payload: true });
 
-		try {
-			const res = await axios.post('http://localhost:4000/api/users/login', {
-				email,
-				password,
-			});
+			try {
+				const res = await axios.post('http://localhost:4000/api/users/login', {
+					email,
+					password,
+				});
 
-			dispatch({
-				type: 'LOGIN_SUCCESS',
-				payload: {
-					user: res.data.data,
-					token: res.data.data.token,
-				},
-			});
+				dispatch({
+					type: 'LOGIN_SUCCESS',
+					payload: {
+						user: res.data.data,
+						token: res.data.data.token,
+					},
+				});
 
-			setAuthToken(res.data.data.token);
-			return { success: true };
-		} catch (error) {
-			const errorMessage = error.response?.data?.message || 'Login failed';
-			dispatch({
-				type: 'LOGIN_FAIL',
-				payload: errorMessage,
-			});
-			return { success: false, error: errorMessage };
-		}
-	};
+				setAuthToken(res.data.data.token);
+				return { success: true };
+			} catch (error) {
+				const errorMessage = error.response?.data?.message || 'Login failed';
+				dispatch({
+					type: 'LOGIN_FAIL',
+					payload: errorMessage,
+				});
+				return { success: false, error: errorMessage };
+			}
+		},
+		[setAuthToken]
+	);
 
 	// Signup user
-	const signup = async (userData) => {
-		dispatch({ type: 'SET_LOADING', payload: true });
+	const signup = useCallback(
+		async (userData) => {
+			dispatch({ type: 'SET_LOADING', payload: true });
 
-		try {
-			const res = await axios.post('http://localhost:4000/api/users/signup', userData);
+			try {
+				const res = await axios.post('http://localhost:4000/api/users/signup', userData);
 
-			dispatch({
-				type: 'SIGNUP_SUCCESS',
-				payload: {
-					user: res.data.data,
-					token: res.data.data.token,
-				},
-			});
+				dispatch({
+					type: 'SIGNUP_SUCCESS',
+					payload: {
+						user: res.data.data,
+						token: res.data.data.token,
+					},
+				});
 
-			setAuthToken(res.data.data.token);
-			return { success: true };
-		} catch (error) {
-			const errorMessage = error.response?.data?.message || 'Signup failed';
-			dispatch({
-				type: 'SIGNUP_FAIL',
-				payload: errorMessage,
-			});
-			return { success: false, error: errorMessage };
-		}
-	};
+				setAuthToken(res.data.data.token);
+				return { success: true };
+			} catch (error) {
+				const errorMessage = error.response?.data?.message || 'Signup failed';
+				dispatch({
+					type: 'SIGNUP_FAIL',
+					payload: errorMessage,
+				});
+				return { success: false, error: errorMessage };
+			}
+		},
+		[setAuthToken]
+	);
 
 	// Logout user
-	const logout = () => {
+	const logout = useCallback(() => {
 		setAuthToken(null);
 		dispatch({ type: 'LOGOUT' });
-	};
+	}, [setAuthToken]);
 
 	// Clear errors
-	const clearError = () => {
+	const clearError = useCallback(() => {
 		dispatch({ type: 'CLEAR_ERROR' });
-	};
+	}, []);
 
-	// Load user on mount
+	// Load user on mount - only runs once
 	useEffect(() => {
 		loadUser();
-	}, []);
+	}, []); // Empty dependency array is safe now because loadUser is memoized
 
 	return (
 		<AuthContext.Provider
