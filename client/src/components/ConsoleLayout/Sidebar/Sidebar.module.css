@@ -263,11 +263,13 @@
 
 .subItem li {
 	list-style: none;
+	margin-right: 1.6rem;
+	border-radius: 1.2rem;
 }
 
 .subItem li a {
 	display: block;
-	padding: 0.6rem 0.8rem 0.6rem 0.8rem;
+	padding: 0.6rem 0.8rem 0.6rem 1.2rem;
 	color: var(--text-300);
 	text-decoration: none;
 	font-size: 1.05rem;
@@ -380,6 +382,22 @@
 	color: #dc2626;
 }
 
+.sidebarNav .secondaryNav .navItem:nth-child(3) .navLink,
+.sidebarNav .secondaryNav .navItem:nth-child(3) button {
+	color: var(--primary-100);
+}
+
+.sidebarNav .secondaryNav .navItem:nth-child(3) .navLink:hover,
+.sidebarNav .secondaryNav .navItem:nth-child(3) button:hover {
+	background-color: #e0f2ff;
+	color: var(--primary-200);
+}
+
+.sidebarNav .secondaryNav .navItem:nth-child(3) .navLink:hover i,
+.sidebarNav .secondaryNav .navItem:nth-child(3) button:hover i {
+	color: var(--primary-200);
+}
+
 .sidebarNav .secondaryNav hr {
 	margin: 1.2rem 1.8rem;
 	border: none;
@@ -424,7 +442,6 @@
 	opacity: 1;
 }
 
-/* Collapsed topbar for mobile - always visible */
 .mobileTopbar {
 	display: none;
 	position: fixed;
