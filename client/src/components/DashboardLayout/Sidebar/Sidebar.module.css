@@ -1,0 +1,37 @@
+.sidebar {
+	height: 100vh;
+	width: 15rem;
+}
+
+.sidebarHeader {
+}
+
+.logo {
+	align-items: center;
+}
+
+.logoLink {
+}
+
+.logoText {
+}
+
+.toggler {
+}
+
+.sidebarNav {
+}
+
+.navList {
+	text-decoration: none;
+}
+
+.primaryNav {
+}
+
+.secondaryNav {
+}
+
+.navItem {
+	list-style-type: none;
+}

@@ -1,4 +1,4 @@
-.unauthorized-container {
+.notfoundContainer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -8,12 +8,12 @@
 	gap: 2rem;
 }
 
-.unauthorized-content {
+.notfoundContent {
 	max-width: 500px;
 	text-align: center;
 }
 
-.error-code {
+.errorCode {
 	font-size: 8rem;
 	font-weight: 900;
 	background: linear-gradient(135deg, var(--primary-100), var(--primary-200));
@@ -25,21 +25,21 @@
 	text-shadow: 0 4px 8px rgba(86, 106, 142, 0.2);
 }
 
-.error-title {
+.errorTitle {
 	font-size: 2.5rem;
 	font-weight: 700;
 	color: var(--text-100);
 	margin: 0 0 1rem 0;
 }
 
-.error-description {
+.errorDescription {
 	font-size: 1.1rem;
 	color: var(--text-200);
 	line-height: 1.6;
 	margin: 0 0 2.5rem 0;
 }
 
-.error-actions {
+.errorActions {
 	display: flex;
 	gap: 1rem;
 	justify-content: center;
@@ -47,11 +47,11 @@
 	flex-wrap: wrap;
 }
 
-.error-illustration {
+.errorIllustration {
 	margin-bottom: 1rem;
 }
 
-.unauthorized-svg {
+.notfoundSvg {
 	width: 200px;
 	height: 200px;
 	animation: float 3s ease-in-out infinite;
@@ -69,45 +69,45 @@
 
 /* Responsive design */
 @media (max-width: 968px) {
-	.unauthorized-container {
+	.notfoundContainer {
 		padding: 2rem;
 	}
 
-	.unauthorized-svg {
+	.notfoundSvg {
 		width: 150px;
 		height: 150px;
 	}
 }
 
 @media (max-width: 640px) {
-	.unauthorized-container {
+	.notfoundContainer {
 		padding: 1.5rem;
 		min-height: 60vh;
 	}
 
-	.error-code {
+	.errorCode {
 		font-size: 6rem;
 	}
 
-	.error-title {
+	.errorTitle {
 		font-size: 2rem;
 	}
 
-	.error-description {
+	.errorDescription {
 		font-size: 1rem;
 	}
 
-	.error-actions {
+	.errorActions {
 		flex-direction: column;
 		align-items: center;
 	}
 
-	.error-actions a {
+	.errorActions a {
 		width: 100%;
 		max-width: 250px;
 	}
 
-	.unauthorized-svg {
+	.notfoundSvg {
 		width: 120px;
 		height: 120px;
 	}

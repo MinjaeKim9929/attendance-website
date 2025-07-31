@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button.css';
+import styles from './Button.module.css';
 
 export default function Button({
 	variant = 'primary',
@@ -10,8 +10,12 @@ export default function Button({
 	...props
 }) {
 	return (
-		<button className={`btn ${variant} ${size} ${loading ? 'loading' : ''}`} disabled={disabled || loading} {...props}>
-			{loading ? <span className="spinner" /> : children}
+		<button
+			className={`${styles.btn} ${styles[variant]} ${styles[size]} ${loading ? styles.loading : ''}`}
+			disabled={disabled || loading}
+			{...props}
+		>
+			{loading ? <span className={styles.spinner} /> : children}
 		</button>
 	);
 }

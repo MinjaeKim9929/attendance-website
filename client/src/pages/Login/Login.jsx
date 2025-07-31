@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
 import { useAuth } from '../../context/AuthContext';
-import './Login.css';
+import styles from './Login.module.css';
 
 export default function Login() {
 	const [formData, setFormData] = useState({
@@ -82,15 +82,15 @@ export default function Login() {
 
 	return (
 		<Layout>
-			<div className="login-container">
-				<div className="login-card">
-					<div className="login-header">
+			<div className={styles.loginContainer}>
+				<div className={styles.loginCard}>
+					<div className={styles.loginHeader}>
 						<h1>Welcome Back</h1>
 						<p>Sign in to your attendance account</p>
 					</div>
 
-					<form onSubmit={handleSubmit} className="login-form">
-						<div className="form-group">
+					<form onSubmit={handleSubmit} className={styles.loginForm}>
+						<div className={styles.formGroup}>
 							<label htmlFor="email">Email Address</label>
 							<input
 								type="email"
@@ -98,14 +98,14 @@ export default function Login() {
 								name="email"
 								value={formData.email}
 								onChange={handleChange}
-								className={errors.email ? 'error' : ''}
+								className={errors.email ? `${styles.error}` : ''}
 								placeholder="Enter your email"
 								disabled={isLoading}
 							/>
-							{errors.email && <span className="error-message">{errors.email}</span>}
+							{errors.email && <span className={styles.errorMessage}>{errors.email}</span>}
 						</div>
 
-						<div className="form-group">
+						<div className={styles.formGroup}>
 							<label htmlFor="password">Password</label>
 							<input
 								type="password"
@@ -113,24 +113,24 @@ export default function Login() {
 								name="password"
 								value={formData.password}
 								onChange={handleChange}
-								className={errors.password ? 'error' : ''}
+								className={errors.password ? `${styles.error}` : ''}
 								placeholder="Enter your password"
 								disabled={isLoading}
 							/>
-							{errors.password && <span className="error-message">{errors.password}</span>}
+							{errors.password && <span className={styles.errorMessage}>{errors.password}</span>}
 						</div>
 
-						{error && <div className="error-message submit-error">{error}</div>}
+						{error && <div className={`${styles.errorMessage} ${styles.submitError}`}>{error}</div>}
 
 						<Button type="submit" variant="primary" size="large" loading={isLoading} style={{ width: '100%' }}>
 							Sign In
 						</Button>
 					</form>
 
-					<div className="login-footer">
+					<div className={styles.loginFooter}>
 						<p>
 							Don't have an account?{' '}
-							<Link to="/signup" className="link">
+							<Link to="/signup" className={styles.link}>
 								Sign up here
 							</Link>
 						</p>

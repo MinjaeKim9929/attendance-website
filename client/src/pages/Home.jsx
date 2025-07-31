@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css';
-import Layout from '../components/Layout/Layout';
 import Button from '../components/Button/Button';
+import Layout from '../components/Layout/Layout';
+import styles from './Home.module.css';
 
 export default function Home() {
 	const features = [
@@ -39,24 +39,23 @@ export default function Home() {
 
 	return (
 		<Layout>
-			<div className="home-container">
-				{/* Hero Section */}
-				<section className="hero-section">
-					<div className="hero-content">
-						<div className="hero-text">
+			<div className={styles.homeContainer}>
+				<section className={styles.heroSection}>
+					<div className={styles.heroContent}>
+						<div className={styles.heroText}>
 							<h1>
 								Modern Attendance
-								<span className="gradient-text"> Management</span>
+								<span className={styles.gradientText}> Management</span>
 							</h1>
-							<p className="hero-description">
+							<p className={styles.heroDescription}>
 								Transform your workforce management with intelligent attendance tracking, comprehensive analytics, and
 								seamless user experience. Built for the modern workplace.
 							</p>
-							<div className="hero-actions">
+							<div className={styles.heroActions}>
 								<Link to="/signup">
 									<Button variant="primary" size="large">
 										Get Started Free
-										<i className="fas fa-arrow-right button-icon" />
+										<i className={`fas fa-arrow-right ${styles.buttonIcon}`} />
 									</Button>
 								</Link>
 								<Link to="/login">
@@ -66,31 +65,31 @@ export default function Home() {
 								</Link>
 							</div>
 						</div>
-						<div className="hero-visual">
-							<div className="dashboard-preview">
-								<div className="dashboard-header">
-									<div className="dashboard-nav">
-										<div className="nav-item active">Dashboard</div>
-										<div className="nav-item">Attendance</div>
-										<div className="nav-item">Reports</div>
+						<div className={styles.heroVisual}>
+							<div className={styles.dashboardPreview}>
+								<div className={styles.dashboardHeader}>
+									<div className={styles.dashboardNav}>
+										<div className={`${styles.navItem} ${styles.active}`}>Dashboard</div>
+										<div className={styles.navItem}>Attendance</div>
+										<div className={styles.navItem}>Reports</div>
 									</div>
 								</div>
-								<div className="dashboard-content">
-									<div className="stat-card">
-										<div className="stat-number">98.5%</div>
-										<div className="stat-label">Attendance Rate</div>
+								<div className={styles.dashboardContent}>
+									<div className={styles.statCard}>
+										<div className={styles.statNumber}>98.5%</div>
+										<div className={styles.statLabel}>Attendance Rate</div>
 									</div>
-									<div className="stat-card">
-										<div className="stat-number">142</div>
-										<div className="stat-label">Active Users</div>
+									<div className={styles.statCard}>
+										<div className={styles.statNumber}>142</div>
+										<div className={styles.statLabel}>Active Users</div>
 									</div>
-									<div className="chart-placeholder">
-										<div className="chart-bars">
-											<div className="bar" style={{ height: '60%' }}></div>
-											<div className="bar" style={{ height: '80%' }}></div>
-											<div className="bar" style={{ height: '45%' }}></div>
-											<div className="bar" style={{ height: '90%' }}></div>
-											<div className="bar" style={{ height: '75%' }}></div>
+									<div className={styles.chartPlaceholder}>
+										<div className={styles.chartBars}>
+											<div className={styles.bar} style={{ height: '60%' }}></div>
+											<div className={styles.bar} style={{ height: '80%' }}></div>
+											<div className={styles.bar} style={{ height: '45%' }}></div>
+											<div className={styles.bar} style={{ height: '90%' }}></div>
+											<div className={styles.bar} style={{ height: '75%' }}></div>
 										</div>
 									</div>
 								</div>
@@ -99,20 +98,19 @@ export default function Home() {
 					</div>
 				</section>
 
-				{/* Account Types Section */}
-				<section className="account-types-section">
-					<div className="section-header">
+				<section className={styles.accountTypesSection}>
+					<div className={styles.sectionHeader}>
 						<h2>Choose Your Account Type</h2>
 						<p>Get started with the right access level for your needs</p>
 					</div>
-					<div className="account-types">
-						<div className="account-type-card user-card">
-							<div className="account-icon">
+					<div className={styles.accountTypes}>
+						<div className={`${styles.accountTypeCard} ${styles.userCard}`}>
+							<div className={styles.accountIcon}>
 								<i className="fas fa-user" />
 							</div>
 							<h3>User Account</h3>
 							<p>Essential features for efficient attendance tracking</p>
-							<ul className="account-features">
+							<ul className={styles.accountFeatures}>
 								<li>
 									<i className="fas fa-check-circle" />
 									Clock in/out tracking
@@ -131,13 +129,13 @@ export default function Home() {
 							</ul>
 						</div>
 
-						<div className="account-type-card admin-card">
-							<div className="account-icon">
+						<div className={`${styles.accountTypeCard} ${styles.adminCard}`}>
+							<div className={styles.accountIcon}>
 								<i className="fas fa-clock" />
 							</div>
 							<h3>Admin Account</h3>
 							<p>Complete system control with advanced management capabilities</p>
-							<ul className="account-features">
+							<ul className={styles.accountFeatures}>
 								<li>
 									<i className="fas fa-check-circle" /> User & attendance management
 								</li>
@@ -156,16 +154,15 @@ export default function Home() {
 					</div>
 				</section>
 
-				{/* Features Section */}
-				<section className="features-section">
-					<div className="section-header">
+				<section className={styles.featuresSection}>
+					<div className={styles.sectionHeader}>
 						<h2>Powerful Features for Modern Teams</h2>
 						<p>Everything you need to manage attendance efficiently and effectively</p>
 					</div>
-					<div className="features-grid">
+					<div className={styles.featuresGrid}>
 						{features.map((feature, index) => (
-							<div key={index} className="feature-card">
-								<div className="feature-icon">
+							<div key={index} className={styles.featureCard}>
+								<div className={styles.featureIcon}>
 									<i className={feature.icon} />
 								</div>
 								<h3>{feature.title}</h3>
@@ -175,21 +172,20 @@ export default function Home() {
 					</div>
 				</section>
 
-				{/* Benefits Section */}
-				<section className="benefits-section">
-					<div className="benefits-content">
-						<div className="benefits-text">
+				<section className={styles.benefitsSection}>
+					<div className={styles.benefitsContent}>
+						<div className={styles.benefitsText}>
 							<h2>Why Choose Our Platform?</h2>
 							<p>Join thousands of organizations already transforming their attendance management</p>
-							<div className="benefits-list">
+							<div className={styles.benefitsList}>
 								{benefits.map((benefit, index) => (
-									<div key={index} className="benefit-item">
-										<i className="fas fa-check-circle benefit-icon" />
+									<div key={index} className={styles.benefitItem}>
+										<i className={`fas fa-check-circle ${styles.benefitIcon}`} />
 										<span>{benefit}</span>
 									</div>
 								))}
 							</div>
-							<div className="benefits-action">
+							<div className={styles.benefitsAction}>
 								<Link to="/signup">
 									<Button variant="cta" size="large">
 										Start Your Free Trial
@@ -197,38 +193,37 @@ export default function Home() {
 								</Link>
 							</div>
 						</div>
-						<div className="benefits-visual">
-							<div className="stats-showcase">
-								<div className="showcase-stat">
-									<div className="stat-value">50K+</div>
-									<div className="stat-desc">Active Users</div>
+						<div className={styles.benefitsVisual}>
+							<div className={styles.statsShowcase}>
+								<div className={styles.showcaseStat}>
+									<div className={styles.statValue}>50K+</div>
+									<div className={styles.statDesc}>Active Users</div>
 								</div>
-								<div className="showcase-stat">
-									<div className="stat-value">99.9%</div>
-									<div className="stat-desc">Uptime</div>
+								<div className={styles.showcaseStat}>
+									<div className={styles.statValue}>99.9%</div>
+									<div className={styles.statDesc}>Uptime</div>
 								</div>
-								<div className="showcase-stat">
-									<div className="stat-value">24/7</div>
-									<div className="stat-desc">Support</div>
+								<div className={styles.showcaseStat}>
+									<div className={styles.statValue}>24/7</div>
+									<div className={styles.statDesc}>Support</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</section>
 
-				{/* CTA Section */}
-				<section className="cta-section">
-					<div className="cta-content">
+				<section className={styles.ctaSection}>
+					<div className={styles.ctaContent}>
 						<h2>Ready to Transform Your Attendance Management?</h2>
 						<p>Join thousands of organizations already using our platform to streamline their workforce management.</p>
-						<div className="cta-actions">
+						<div className={styles.ctaActions}>
 							<Link to="/signup">
 								<Button variant="primary" size="large">
 									Get Started Now
-									<i className="fas fa-arrow-right button-icon" />
+									<i className={`fas fa-arrow-right ${styles.buttonIcon}`} />
 								</Button>
 							</Link>
-							<Link to="/login" className="cta-link">
+							<Link to="/login" className={styles.ctaLink}>
 								Already have an account? Sign in
 							</Link>
 						</div>

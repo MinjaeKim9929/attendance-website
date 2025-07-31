@@ -1,12 +1,12 @@
 @import '@fortawesome/fontawesome-free/css/all.css';
 
-.home-container {
+.homeContainer {
 	width: 100%;
 	overflow-x: hidden;
 }
 
 /* Hero Section */
-.hero-section {
+.heroSection {
 	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 	color: white;
 	padding: 6rem 2rem;
@@ -14,7 +14,7 @@
 	overflow: hidden;
 }
 
-.hero-section::before {
+.heroSection::before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -36,7 +36,7 @@
 	}
 }
 
-.hero-content {
+.heroContent {
 	max-width: 1200px;
 	margin: 0 auto;
 	display: grid;
@@ -47,13 +47,13 @@
 	z-index: 1;
 }
 
-.hero-text h1 {
+.heroText h1 {
 	font-size: 3.5rem;
 	font-weight: 800;
 	line-height: 1.1;
 	margin-bottom: 1.5rem;
 }
-.gradient-text {
+.gradientText {
 	background: linear-gradient(45deg, #00f5ff 0%, #ff6b9d 50%, #ffd700 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -71,40 +71,42 @@
 	}
 }
 
-.hero-description {
+.heroDescription {
 	font-size: 1.25rem;
 	line-height: 1.6;
 	margin-bottom: 2.5rem;
 	opacity: 0.9;
 }
 
-.hero-actions {
+.heroActions {
 	display: flex;
 	gap: 1rem;
 	align-items: center;
 }
 
-.hero-actions button[class*='primary'] {
+.heroActions button[class*='primary'],
+.ctaActions button[class*='primary'] {
 	border: 2px solid var(--primary-300);
+	text-align: center;
 }
 
-.button-icon {
+.buttonIcon {
 	margin-left: 0.5rem;
 	transition: transform 0.2s ease;
 }
 
-.hero-actions button:hover .button-icon {
+.heroActions button:hover .buttonIcon {
 	transform: translateX(3px);
 }
 
 /* Dashboard Preview */
-.hero-visual {
+.heroVisual {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.dashboard-preview {
+.dashboardPreview {
 	background: rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(10px);
 	border: 1px solid rgba(255, 255, 255, 0.2);
@@ -126,16 +128,16 @@
 	}
 }
 
-.dashboard-header {
+.dashboardHeader {
 	margin-bottom: 1.5rem;
 }
 
-.dashboard-nav {
+.dashboardNav {
 	display: flex;
 	gap: 1rem;
 }
 
-.nav-item {
+.navItem {
 	padding: 0.5rem 1rem;
 	border-radius: 8px;
 	font-size: 0.9rem;
@@ -143,37 +145,37 @@
 	transition: all 0.2s ease;
 }
 
-.nav-item.active {
+.navItem.active {
 	background: rgba(255, 255, 255, 0.2);
 	opacity: 1;
 }
 
-.dashboard-content {
+.dashboardContent {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 1rem;
 	margin-bottom: 1rem;
 }
 
-.stat-card {
+.statCard {
 	background: rgba(255, 255, 255, 0.15);
 	padding: 1rem;
 	border-radius: 12px;
 	text-align: center;
 }
 
-.stat-number {
+.statNumber {
 	font-size: 1.5rem;
 	font-weight: 700;
 	margin-bottom: 0.25rem;
 }
 
-.stat-label {
+.statLabel {
 	font-size: 0.8rem;
 	opacity: 0.8;
 }
 
-.chart-placeholder {
+.chartPlaceholder {
 	grid-column: 1 / -1;
 	background: rgba(255, 255, 255, 0.1);
 	border-radius: 12px;
@@ -181,7 +183,7 @@
 	height: 80px;
 }
 
-.chart-bars {
+.chartBars {
 	display: flex;
 	align-items: end;
 	gap: 0.5rem;
@@ -220,32 +222,32 @@
 }
 
 /* Section Headers */
-.section-header {
+.sectionHeader {
 	text-align: center;
 	max-width: 600px;
 	margin: 0 auto 4rem auto;
 }
 
-.section-header h2 {
+.sectionHeader h2 {
 	font-size: 2.5rem;
 	font-weight: 700;
 	color: var(--text-100);
 	margin-bottom: 1rem;
 }
 
-.section-header p {
+.sectionHeader p {
 	font-size: 1.1rem;
 	color: var(--text-200);
 	line-height: 1.6;
 }
 
 /* Account Types Section */
-.account-types-section {
+.accountTypesSection {
 	padding: 6rem 2rem;
 	background: var(--bg-50);
 }
 
-.account-types {
+.accountTypes {
 	max-width: 800px;
 	margin: 0 auto;
 	display: grid;
@@ -253,7 +255,7 @@
 	gap: 3rem;
 }
 
-.account-type-card {
+.accountTypeCard {
 	background: white;
 	border-radius: 24px;
 	padding: 3rem 2rem 2rem;
@@ -265,7 +267,7 @@
 	overflow: hidden;
 }
 
-.account-type-card::before {
+.accountTypeCard::before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -275,20 +277,20 @@
 	background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
 }
 
-.account-type-card:hover {
+.accountTypeCard:hover {
 	transform: translateY(-5px);
 	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-.admin-card::before {
+.adminCard::before {
 	background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
 }
 
-.user-card::before {
+.userCard::before {
 	background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
 }
 
-.account-icon {
+.accountIcon {
 	width: 80px;
 	height: 80px;
 	border-radius: 50%;
@@ -300,35 +302,35 @@
 	color: white;
 }
 
-.admin-card .account-icon {
+.adminCard .accountIcon {
 	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.user-card .account-icon {
+.userCard .accountIcon {
 	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
-.account-type-card h3 {
+.accountTypeCard h3 {
 	font-size: 1.75rem;
 	font-weight: 700;
 	color: var(--text-100);
 	margin-bottom: 1rem;
 }
 
-.account-type-card p {
+.accountTypeCard p {
 	color: var(--text-200);
 	margin-bottom: 2rem;
 	line-height: 1.6;
 }
 
-.account-features {
+.accountFeatures {
 	list-style: none;
 	padding: 0;
 	margin: 0 0 2rem 0;
 	text-align: left;
 }
 
-.account-features li {
+.accountFeatures li {
 	display: flex;
 	align-items: center;
 	gap: 0.75rem;
@@ -337,25 +339,25 @@
 	font-size: 0.95rem;
 }
 
-.account-features li svg {
+.accountFeatures li svg {
 	color: var(--primary-100);
 	font-size: 1rem;
 }
 
 /* Features Section */
-.features-section {
+.featuresSection {
 	padding: 6rem 2rem;
 	max-width: 1200px;
 	margin: 0 auto;
 }
 
-.features-grid {
+.featuresGrid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 	gap: 2rem;
 }
 
-.feature-card {
+.featureCard {
 	background: white;
 	padding: 2.5rem 2rem;
 	border-radius: 20px;
@@ -365,12 +367,12 @@
 	border: 1px solid var(--bg-200);
 }
 
-.feature-card:hover {
+.featureCard:hover {
 	transform: translateY(-5px);
 	box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
 }
 
-.feature-icon {
+.featureIcon {
 	width: 70px;
 	height: 70px;
 	border-radius: 50%;
@@ -383,25 +385,25 @@
 	font-size: 1.5rem;
 }
 
-.feature-card h3 {
+.featureCard h3 {
 	font-size: 1.5rem;
 	font-weight: 700;
 	color: var(--text-100);
 	margin-bottom: 1rem;
 }
 
-.feature-card p {
+.featureCard p {
 	color: var(--text-200);
 	line-height: 1.6;
 }
 
 /* Benefits Section */
-.benefits-section {
+.benefitsSection {
 	padding: 6rem 2rem;
 	background: linear-gradient(135deg, #f8f9fc 0%, #e8f0fe 100%);
 }
 
-.benefits-content {
+.benefitsContent {
 	max-width: 1200px;
 	margin: 0 auto;
 	display: grid;
@@ -410,25 +412,25 @@
 	align-items: center;
 }
 
-.benefits-text h2 {
+.benefitsText h2 {
 	font-size: 2.5rem;
 	font-weight: 700;
 	color: var(--text-100);
 	margin-bottom: 1rem;
 }
 
-.benefits-text p {
+.benefitsText p {
 	font-size: 1.1rem;
 	color: var(--text-200);
 	margin-bottom: 2rem;
 	line-height: 1.6;
 }
 
-.benefits-list {
+.benefitsList {
 	margin-bottom: 2.5rem;
 }
 
-.benefit-item {
+.benefitItem {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
@@ -437,18 +439,18 @@
 	color: var(--text-100);
 }
 
-.benefit-icon {
+.benefitIcon {
 	color: #10b981;
 	font-size: 1.1rem;
 }
 
-.stats-showcase {
+.statsShowcase {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 2rem;
 }
 
-.showcase-stat {
+.showcaseStat {
 	background: white;
 	padding: 2rem;
 	border-radius: 20px;
@@ -456,138 +458,138 @@
 	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
-.stat-value {
+.statValue {
 	font-size: 2.5rem;
 	font-weight: 800;
 	color: var(--primary-100);
 	margin-bottom: 0.5rem;
 }
 
-.stat-desc {
+.statDesc {
 	color: var(--text-200);
 	font-weight: 600;
 }
 
 /* CTA Section */
-.cta-section {
+.ctaSection {
 	padding: 6rem 2rem;
 	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 	color: white;
 	text-align: center;
 }
 
-.cta-content {
+.ctaContent {
 	max-width: 600px;
 	margin: 0 auto;
 }
 
-.cta-content h2 {
+.ctaContent h2 {
 	font-size: 2.5rem;
 	font-weight: 700;
 	margin-bottom: 1rem;
 }
 
-.cta-content p {
+.ctaContent p {
 	font-size: 1.1rem;
 	margin-bottom: 2.5rem;
 	opacity: 0.9;
 	line-height: 1.6;
 }
 
-.cta-actions {
+.ctaActions {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 1rem;
 }
 
-.cta-link {
+.ctaLink {
 	color: rgba(255, 255, 255, 0.8);
 	text-decoration: none;
 	font-weight: 600;
 	transition: color 0.2s ease;
 }
 
-.cta-link:hover {
+.ctaLink:hover {
 	color: white;
 	text-decoration: underline;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-	.hero-content,
-	.benefits-content {
+	.heroContent,
+	.benefitsContent {
 		grid-template-columns: 1fr;
 		gap: 3rem;
 		text-align: center;
 	}
 
-	.hero-text h1 {
+	.heroText h1 {
 		font-size: 3rem;
 	}
 
-	.account-types {
+	.accountTypes {
 		grid-template-columns: 1fr;
 		gap: 2rem;
 	}
 }
 
 @media (max-width: 768px) {
-	.hero-section {
+	.heroSection {
 		padding: 4rem 1rem;
 	}
 
-	.hero-text h1 {
+	.heroText h1 {
 		font-size: 2.5rem;
 	}
 
-	.hero-description {
+	.heroDescription {
 		font-size: 1.1rem;
 	}
 
-	.hero-actions {
+	.heroActions {
 		flex-direction: column;
 		width: 100%;
 	}
 
-	.hero-actions button,
-	.hero-actions a {
+	.heroActions button,
+	.heroActions a {
 		width: 100%;
 	}
 
-	.section-header h2 {
+	.sectionHeader h2 {
 		font-size: 2rem;
 	}
 
-	.features-section,
-	.benefits-section,
-	.account-types-section {
+	.featuresSection,
+	.benefitsSection,
+	.accountTypesSection {
 		padding: 4rem 1rem;
 	}
 
-	.stats-showcase {
+	.statsShowcase {
 		grid-template-columns: 1fr;
 	}
 
-	.cta-section {
+	.ctaSection {
 		padding: 4rem 1rem;
 	}
 
-	.cta-content h2 {
+	.ctaContent h2 {
 		font-size: 2rem;
 	}
 }
 
 @media (max-width: 480px) {
-	.dashboard-content {
+	.dashboardContent {
 		grid-template-columns: 1fr;
 	}
 
-	.account-type-card {
+	.accountTypeCard {
 		padding: 2rem 1.5rem;
 	}
 
-	.feature-card {
+	.featureCard {
 		padding: 2rem 1.5rem;
 	}
 }

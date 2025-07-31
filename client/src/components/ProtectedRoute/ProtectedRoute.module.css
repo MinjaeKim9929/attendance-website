@@ -1,5 +1,5 @@
 /* Loading spinner container */
-.loading-container {
+.loadingContainer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -7,7 +7,7 @@
 }
 
 /* Loading spinner */
-.loading-spinner {
+.loadingSpinner {
 	width: 40px;
 	height: 40px;
 	border: 4px solid #f3f3f3;

@@ -2,14 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
-import './NotFound.css';
+import styles from './NotFound.module.css';
 
 export default function NotFound() {
 	return (
 		<Layout>
-			<div className="notfound-container">
-				<div className="error-illustration">
-					<svg viewBox="0 0 200 200" className="notfound-svg">
+			<div className={styles.notfoundContainer}>
+				<div className={styles.errorIllustration}>
+					<svg viewBox="0 0 200 200" className={styles.notfoundSvg}>
 						<circle cx="100" cy="100" r="80" fill="var(--primary-300)" opacity="0.3" />
 						<circle cx="100" cy="100" r="60" fill="var(--primary-200)" opacity="0.5" />
 						<circle cx="100" cy="100" r="40" fill="var(--primary-100)" opacity="0.7" />
@@ -19,12 +19,14 @@ export default function NotFound() {
 					</svg>
 				</div>
 
-				<div className="notfound-content">
-					<div className="error-code">404</div>
-					<h1 className="error-title">Page Not Found</h1>
-					<p className="error-description">Sorry, the page you are looking for doesn't exist or has been moved.</p>
+				<div className={styles.notfoundContent}>
+					<div className={styles.errorCode}>404</div>
+					<h1 className={styles.errorTitle}>Page Not Found</h1>
+					<p className={styles.errorDescription}>
+						Sorry, the page you are looking for doesn't exist or has been moved.
+					</p>
 
-					<div className="error-actions">
+					<div className={styles.errorActions}>
 						<Link to="/">
 							<Button variant="primary" size="large">
 								Go Home

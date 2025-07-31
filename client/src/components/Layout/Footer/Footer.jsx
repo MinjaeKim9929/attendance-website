@@ -1,22 +1,22 @@
 import React from 'react';
-import './Footer.css';
+import styles from './Footer.module.css';
 
 export default function Footer() {
 	const currentYear = new Date().getFullYear();
 
 	return (
-		<footer className="footer">
-			<div className="footer-content">
-				<div className="footer-main">
-					<div className="footer-brand">
-						<h3 className="footer-logo">AW</h3>
-						<p className="footer-description">
+		<footer className={styles.footer}>
+			<div className={styles.footerContent}>
+				<div className={styles.footerMain}>
+					<div className={styles.footerBrand}>
+						<h3 className={styles.footerLogo}>AW</h3>
+						<p className={styles.footerDescription}>
 							Simplifying attendance tracking and management for organizations of all sizes.
 						</p>
 					</div>
 
-					<div className="footer-links-section">
-						<div className="footer-column">
+					<div className={styles.footerLinksSection}>
+						<div className={styles.footerColumn}>
 							<h4>Legal</h4>
 							<ul>
 								<li>
@@ -28,7 +28,7 @@ export default function Footer() {
 							</ul>
 						</div>
 
-						<div className="footer-column">
+						<div className={styles.footerColumn}>
 							<h4>Contact</h4>
 							<ul>
 								<li>
@@ -39,7 +39,7 @@ export default function Footer() {
 					</div>
 				</div>
 
-				<div className="footer-bottom">
+				<div className={styles.footerBottom}>
 					<p>&copy; {currentYear} Attendance Website. All rights reserved.</p>
 				</div>
 			</div>

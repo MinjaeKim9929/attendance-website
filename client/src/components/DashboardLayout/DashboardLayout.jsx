@@ -1,10 +1,10 @@
 import React from 'react';
 import Sidebar from './Sidebar/Sidebar';
-import './DashboardLayout.css';
+import styles from './DashboardLayout.module.css';
 
 export default function DashboardLayout({ children }) {
 	return (
-		<div className="dashboard-layout">
+		<div className={styles.dashboardLayout}>
 			<Sidebar />
 			<main>{children}</main>
 		</div>

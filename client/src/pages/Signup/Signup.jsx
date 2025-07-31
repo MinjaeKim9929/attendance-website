@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
 import { useAuth } from '../../context/AuthContext';
-import './Signup.css';
+import styles from './Signup.module.css';
 
 export default function Signup() {
 	const navigate = useNavigate();
@@ -161,16 +161,16 @@ export default function Signup() {
 	if (step === 'role-selection') {
 		return (
 			<Layout>
-				<div className="signup-container">
-					<div className="signup-card">
-						<div className="signup-header">
+				<div className={styles.signupContainer}>
+					<div className={styles.signupCard}>
+						<div className={styles.signupHeader}>
 							<h1>Choose Account Type</h1>
 							<p>Select the type of account you want to create</p>
 						</div>
 
-						<div className="role-selection">
-							<div className="role-option" onClick={() => handleRoleSelection('user')}>
-								<div className="role-icon user-icon">
+						<div className={styles.roleSelection}>
+							<div className={styles.roleOption} onClick={() => handleRoleSelection('user')}>
+								<div className={`${styles.roleIcon} ${styles.userIcon}`}>
 									<i className="fas fa-user"></i>
 								</div>
 								<h3>User Account</h3>
@@ -183,8 +183,8 @@ export default function Signup() {
 								</ul>
 							</div>
 
-							<div className="role-option" onClick={() => handleRoleSelection('admin')}>
-								<div className="role-icon admin-icon">
+							<div className={styles.roleOption} onClick={() => handleRoleSelection('admin')}>
+								<div className={`${styles.roleIcon} ${styles.adminIcon}`}>
 									<i className="fas fa-user-gear"></i>
 								</div>
 								<h3>Admin Account</h3>
@@ -197,10 +197,10 @@ export default function Signup() {
 							</div>
 						</div>
 
-						<div className="signup-footer">
+						<div className={styles.signupFooter}>
 							<p>
 								Already have an account?{' '}
-								<Link to="/login" className="link">
+								<Link to="/login" className={styles.link}>
 									Sign in here
 								</Link>
 							</p>
@@ -214,10 +214,15 @@ export default function Signup() {
 	// Signup Form Step
 	return (
 		<Layout>
-			<div className="signup-container">
-				<div className="signup-card">
-					<div className="signup-header">
-						<button type="button" className="back-button" onClick={handleBackToRoleSelection} disabled={isLoading}>
+			<div className={styles.signupContainer}>
+				<div className={styles.signupCard}>
+					<div className={styles.signupHeader}>
+						<button
+							type="button"
+							className={styles.backButton}
+							onClick={handleBackToRoleSelection}
+							disabled={isLoading}
+						>
 							←&nbsp; Back
 						</button>
 						<h1>Create {selectedRole === 'admin' ? 'Admin' : 'User'} Account</h1>
@@ -228,9 +233,9 @@ export default function Signup() {
 						</p>
 					</div>
 
-					<form onSubmit={handleSubmit} className="signup-form">
-						<div className="form-row">
-							<div className="form-group">
+					<form onSubmit={handleSubmit} className={styles.signupForm}>
+						<div className={styles.formRow}>
+							<div className={styles.formGroup}>
 								<label htmlFor="firstName">First Name</label>
 								<input
 									type="text"
@@ -238,14 +243,14 @@ export default function Signup() {
 									name="firstName"
 									value={formData.firstName}
 									onChange={handleChange}
-									className={errors.firstName ? 'error' : ''}
+									className={errors.firstName ? styles.error : ''}
 									placeholder="First name"
 									disabled={isLoading}
 								/>
-								{errors.firstName && <span className="error-message">{errors.firstName}</span>}
+								{errors.firstName && <span className={styles.errorMessage}>{errors.firstName}</span>}
 							</div>
 
-							<div className="form-group">
+							<div className={styles.formGroup}>
 								<label htmlFor="lastName">Last Name</label>
 								<input
 									type="text"
@@ -253,14 +258,14 @@ export default function Signup() {
 									name="lastName"
 									value={formData.lastName}
 									onChange={handleChange}
-									className={errors.lastName ? 'error' : ''}
+									className={errors.lastName ? styles.error : ''}
 									placeholder="Last name"
 									disabled={isLoading}
 								/>
-								{errors.lastName && <span className="error-message">{errors.lastName}</span>}
+								{errors.lastName && <span className={styles.errorMessage}>{errors.lastName}</span>}
 							</div>
 						</div>
-						<div className="form-group">
+						<div className={styles.formGroup}>
 							<label htmlFor="email">Email Address</label>
 							<input
 								type="email"
@@ -268,13 +273,13 @@ export default function Signup() {
 								name="email"
 								value={formData.email}
 								onChange={handleChange}
-								className={errors.email ? 'error' : ''}
+								className={errors.email ? styles.error : ''}
 								placeholder="Enter your email"
 								disabled={isLoading}
 							/>
-							{errors.email && <span className="error-message">{errors.email}</span>}
+							{errors.email && <span className={styles.errorMessage}>{errors.email}</span>}
 						</div>
-						<div className="form-group">
+						<div className={styles.formGroup}>
 							<label htmlFor="dateOfBirth">Date of Birth</label>
 							<input
 								type="date"
@@ -282,17 +287,17 @@ export default function Signup() {
 								name="dateOfBirth"
 								value={formData.dateOfBirth}
 								onChange={handleChange}
-								className={errors.dateOfBirth ? 'error' : ''}
+								className={errors.dateOfBirth ? styles.error : ''}
 								disabled={isLoading}
 								max={new Date().toISOString().split('T')[0]} // Prevent future dates
 							/>
-							{errors.dateOfBirth && <span className="error-message">{errors.dateOfBirth}</span>}
+							{errors.dateOfBirth && <span className={styles.errorMessage}>{errors.dateOfBirth}</span>}
 						</div>
 
 						{/* Role-specific fields */}
 						{selectedRole === 'admin' && (
 							<>
-								<div className="form-group">
+								<div className={styles.formGroup}>
 									<label htmlFor="adminCode">Admin Access Code</label>
 									<input
 										type="password"
@@ -300,16 +305,16 @@ export default function Signup() {
 										name="adminCode"
 										value={formData.adminCode}
 										onChange={handleChange}
-										className={errors.adminCode ? 'error' : ''}
+										className={errors.adminCode ? styles.error : ''}
 										placeholder="Enter admin access code"
 										disabled={isLoading}
 									/>
-									{errors.adminCode && <span className="error-message">{errors.adminCode}</span>}
+									{errors.adminCode && <span className={styles.errorMessage}>{errors.adminCode}</span>}
 								</div>
 							</>
 						)}
-						<div className="form-row">
-							<div className="form-group">
+						<div className={styles.formRow}>
+							<div className={styles.formGroup}>
 								<label htmlFor="password">Password</label>
 								<input
 									type="password"
@@ -317,14 +322,14 @@ export default function Signup() {
 									name="password"
 									value={formData.password}
 									onChange={handleChange}
-									className={errors.password ? 'error' : ''}
+									className={errors.password ? styles.error : ''}
 									placeholder="Create password"
 									disabled={isLoading}
 								/>
-								{errors.password && <span className="error-message">{errors.password}</span>}
+								{errors.password && <span className={styles.errorMessage}>{errors.password}</span>}
 							</div>
 
-							<div className="form-group">
+							<div className={styles.formGroup}>
 								<label htmlFor="confirmPassword">Confirm Password</label>
 								<input
 									type="password"
@@ -332,23 +337,23 @@ export default function Signup() {
 									name="confirmPassword"
 									value={formData.confirmPassword}
 									onChange={handleChange}
-									className={errors.confirmPassword ? 'error' : ''}
+									className={errors.confirmPassword ? styles.error : ''}
 									placeholder="Confirm password"
 									disabled={isLoading}
 								/>
-								{errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
+								{errors.confirmPassword && <span className={styles.errorMessage}>{errors.confirmPassword}</span>}
 							</div>
 						</div>
-						{error && <div className="error-message submit-error">{error}</div>}
+						{error && <div className={`${styles.errorMessage} ${styles.submitError}`}>{error}</div>}
 						<Button type="submit" variant="primary" size="large" loading={isLoading} style={{ width: '100%' }}>
 							Create {selectedRole === 'admin' ? 'Admin' : 'User'} Account
 						</Button>
 					</form>
 
-					<div className="signup-footer">
+					<div className={styles.signupFooter}>
 						<p>
 							Already have an account?{' '}
-							<Link to="/login" className="link">
+							<Link to="/login" className={styles.link}>
 								Sign in here
 							</Link>
 						</p>

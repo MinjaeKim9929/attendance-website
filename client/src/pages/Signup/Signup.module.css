@@ -1,6 +1,4 @@
-@import '@fortawesome/fontawesome-free/css/all.css';
-
-.signup-container {
+.signupContainer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -8,7 +6,7 @@
 	padding: 2rem;
 }
 
-.signup-card {
+.signupCard {
 	background: white;
 	border-radius: 20px;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -19,32 +17,32 @@
 	position: relative;
 }
 
-.signup-header {
+.signupHeader {
 	text-align: center;
 	margin-bottom: 2.5rem;
 }
 
-.signup-header h1 {
+.signupHeader h1 {
 	font-size: 2rem;
 	font-weight: 700;
 	color: var(--text-100);
 	margin: 0 0 0.5rem 0;
 }
 
-.signup-header p {
+.signupHeader p {
 	color: var(--text-200);
 	font-size: 1rem;
 	margin: 0;
 }
 
-.role-selection {
+.roleSelection {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 1.5rem;
 	margin-bottom: 2rem;
 }
 
-.role-option {
+.roleOption {
 	border: 2px solid var(--bg-200);
 	border-radius: 16px;
 	padding: 2rem 1.5rem;
@@ -56,7 +54,7 @@
 	overflow: hidden;
 }
 
-.role-option::before {
+.roleOption::before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -69,26 +67,26 @@
 	pointer-events: none;
 }
 
-.role-option:hover {
+.roleOption:hover {
 	border-color: var(--primary-100);
 	transform: translateY(-4px);
 	box-shadow: 0 12px 35px rgba(86, 106, 142, 0.2);
 }
 
-.role-option:hover::before {
+.roleOption:hover::before {
 	opacity: 1;
 }
 
-.role-option:hover .role-icon {
+.roleOption:hover .roleIcon {
 	transform: scale(1.1);
 	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.role-option:active {
+.roleOption:active {
 	transform: translateY(-2px);
 }
 
-.role-icon {
+.roleIcon {
 	font-size: 2.5rem;
 	margin-bottom: 1rem;
 	display: flex;
@@ -103,7 +101,7 @@
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.role-icon i {
+.roleIcon i {
 	color: white;
 	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 	transition: all 0.3s ease;
@@ -111,12 +109,12 @@
 	z-index: 2;
 }
 
-.admin-icon {
+.adminIcon {
 	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 	position: relative;
 }
 
-.admin-icon::before {
+.adminIcon::before {
 	content: '';
 	position: absolute;
 	top: -2px;
@@ -130,16 +128,16 @@
 	z-index: -1;
 }
 
-.role-option:hover .admin-icon::before {
+.roleOption:hover .adminIcon::before {
 	opacity: 0.7;
 }
 
-.user-icon {
+.userIcon {
 	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 	position: relative;
 }
 
-.user-icon::before {
+.userIcon::before {
 	content: '';
 	position: absolute;
 	top: -2px;
@@ -153,11 +151,11 @@
 	z-index: -1;
 }
 
-.role-option:hover .user-icon::before {
+.roleOption:hover .userIcon::before {
 	opacity: 0.7;
 }
 
-.role-icon::after {
+.roleIcon::after {
 	content: '';
 	position: absolute;
 	top: 50%;
@@ -186,7 +184,7 @@
 	}
 }
 
-.role-option h3 {
+.roleOption h3 {
 	font-size: 1.5rem;
 	font-weight: 700;
 	color: var(--text-100);
@@ -194,29 +192,29 @@
 	transition: color 0.3s ease;
 }
 
-.role-option:hover h3 {
+.roleOption:hover h3 {
 	color: var(--primary-100);
 }
 
-.role-option p {
+.roleOption p {
 	color: var(--text-200);
 	font-size: 0.95rem;
 	margin: 0 0 1rem 0;
 	transition: color 0.3s ease;
 }
 
-.role-option:hover p {
+.roleOption:hover p {
 	color: var(--text-100);
 }
 
-.role-option ul {
+.roleOption ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 	text-align: left;
 }
 
-.role-option ul li {
+.roleOption ul li {
 	color: var(--text-200);
 	font-size: 0.85rem;
 	margin-bottom: 0.5rem;
@@ -225,7 +223,7 @@
 	transition: all 0.3s ease;
 }
 
-.role-option ul li:before {
+.roleOption ul li:before {
 	content: '✓';
 	color: var(--primary-100);
 	font-weight: bold;
@@ -235,16 +233,16 @@
 	transform: scale(1);
 }
 
-.role-option:hover ul li {
+.roleOption:hover ul li {
 	color: var(--text-100);
 }
 
-.role-option:hover ul li:before {
+.roleOption:hover ul li:before {
 	transform: scale(1.2);
 	color: #27ae60;
 }
 
-.back-button {
+.backButton {
 	background: none;
 	border: none;
 	color: var(--primary-100);
@@ -260,42 +258,42 @@
 	margin-bottom: 1.5rem;
 }
 
-.back-button:hover:not(:disabled) {
+.backButton:hover:not(:disabled) {
 	background-color: rgba(86, 106, 142, 0.1);
 	color: var(--primary-200);
 	transform: translateX(-2px);
 }
 
-.back-button:disabled {
+.backButton:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
 }
 
-.signup-form {
+.signupForm {
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
 }
 
-.form-row {
+.formRow {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 1rem;
 }
 
-.form-group {
+.formGroup {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
 }
 
-.form-group label {
+.formGroup label {
 	font-weight: 600;
 	color: var(--text-100);
 	font-size: 0.9rem;
 }
 
-.form-group input {
+.formGroup input {
 	padding: 0.75rem 1rem;
 	border: 2px solid var(--bg-200);
 	border-radius: 12px;
@@ -306,30 +304,30 @@
 	transition: all 0.2s ease;
 }
 
-.form-group input:focus {
+.formGroup input:focus {
 	outline: none;
 	border-color: var(--primary-100);
 	box-shadow: 0 0 0 3px rgba(86, 106, 142, 0.1);
 }
 
-.form-group input.error {
+.formGroup input.error {
 	border-color: #e74c3c;
 	box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
 }
 
-.form-group input:disabled {
+.formGroup input:disabled {
 	background-color: var(--bg-100);
 	cursor: not-allowed;
 	opacity: 0.7;
 }
 
-.error-message {
+.errorMessage {
 	color: #e74c3c;
 	font-size: 0.85rem;
 	font-weight: 500;
 }
 
-.submit-error {
+.submitError {
 	text-align: center;
 	padding: 0.75rem;
 	background-color: rgba(231, 76, 60, 0.1);
@@ -337,14 +335,14 @@
 	border: 1px solid rgba(231, 76, 60, 0.2);
 }
 
-.signup-footer {
+.signupFooter {
 	text-align: center;
 	margin-top: 2rem;
 	padding-top: 2rem;
 	border-top: 1px solid var(--bg-200);
 }
 
-.signup-footer p {
+.signupFooter p {
 	color: var(--text-200);
 	font-size: 0.9rem;
 	margin: 0;
@@ -368,43 +366,43 @@ form Button {
 
 /* Responsive design */
 @media (max-width: 768px) {
-	.role-selection {
+	.roleSelection {
 		grid-template-columns: 1fr;
 		gap: 1rem;
 	}
 
-	.role-option {
+	.roleOption {
 		padding: 1.5rem 1rem;
 	}
 
-	.role-icon {
+	.roleIcon {
 		width: 60px;
 		height: 60px;
 		font-size: 2rem;
 	}
 
-	.role-option h3 {
+	.roleOption h3 {
 		font-size: 1.25rem;
 	}
 }
 
 @media (max-width: 640px) {
-	.signup-container {
+	.signupContainer {
 		padding: 1rem;
 		align-items: flex-start;
 		padding-top: 2rem;
 	}
 
-	.signup-card {
+	.signupCard {
 		padding: 2rem;
 		border-radius: 16px;
 	}
 
-	.signup-header h1 {
+	.signupHeader h1 {
 		font-size: 1.75rem;
 	}
 
-	.form-row {
+	.formRow {
 		grid-template-columns: 1fr;
 		gap: 1.5rem;
 	}

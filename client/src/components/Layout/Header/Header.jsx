@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../Button/Button';
-import './Header.css';
+import styles from './Header.module.css';
 
 export default function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,23 +11,23 @@ export default function Header() {
 	};
 
 	return (
-		<header className="header">
-			<div className="logo">
-				<Link to="/" className="logo-link">
-					<h1 className="logo-text">AW</h1>
+		<header className={styles.header}>
+			<div className={styles.logo}>
+				<Link to="/" className={styles.logoLink}>
+					<h1 className={styles.logoText}>AW</h1>
 				</Link>
 			</div>
-			<nav className="navigation">
-				<ul className="desktop-menu">
+			<nav className={styles.navigation}>
+				<ul className={styles.desktopMenu}>
 					<li>
-						<Link to="/" className="nav-link nav-home">
+						<Link to="/" className={`${styles.navLink} ${styles.navHome}`}>
 							Home
 						</Link>
 					</li>
 					<li>Features</li>
 					<li>About</li>
 					<li>
-						<Link to="/login" className="nav-link">
+						<Link to="/login" className={styles.navLink}>
 							Login
 						</Link>
 					</li>
@@ -41,22 +41,22 @@ export default function Header() {
 				</ul>
 
 				<button
-					className={`hamburger ${isMenuOpen ? 'active' : ''}`}
+					className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}
 					onClick={toggleMenu}
 					aria-label="Toggle mobile menu"
 				>
-					<span className="hamburger-line"></span>
-					<span className="hamburger-line"></span>
-					<span className="hamburger-line"></span>
+					<span className={styles.hamburgerLine}></span>
+					<span className={styles.hamburgerLine}></span>
+					<span className={styles.hamburgerLine}></span>
 				</button>
 			</nav>
 
-			<div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
+			<div className={`${styles.mobileMenu} ${isMenuOpen ? styles.active : ''}`}>
 				<ul>
 					<li>Features</li>
 					<li>About</li>
 					<li>
-						<Link to="/login" className="nav-link">
+						<Link to="/login" className={styles.navLink}>
 							Login
 						</Link>
 					</li>
