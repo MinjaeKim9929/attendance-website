@@ -3,7 +3,9 @@ import Home from './pages/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Unauthorized from './pages/Unauthorized/Unauthorized';
-import Dashboard from './pages/Dashboard/Dashboard';
+import DashboardHome from './pages/Dashboard/DashboardHome';
+import Profile from './pages/Dashboard/Profile/Profile';
+import Settings from './pages/Dashboard/Settings/Settings';
 import NotFound from './pages/NotFound/NotFound';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
@@ -26,10 +28,27 @@ export default function App() {
 						path="/dashboard"
 						element={
 							<ProtectedRoute>
-								<Dashboard />
+								<DashboardHome />
 							</ProtectedRoute>
 						}
 					/>
+					<Route
+						path="/dashboard/profile"
+						element={
+							<ProtectedRoute>
+								<Profile />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/dashboard/settings"
+						element={
+							<ProtectedRoute>
+								<Settings />
+							</ProtectedRoute>
+						}
+					/>
+
 					{/* 404 Page */}
 					<Route path="*" element={<NotFound />} />
 				</Routes>

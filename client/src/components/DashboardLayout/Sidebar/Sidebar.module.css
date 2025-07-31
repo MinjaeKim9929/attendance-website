@@ -1,37 +1,172 @@
 .sidebar {
-	height: 100vh;
-	width: 15rem;
+	height: calc(100vh - 3rem);
+	width: 16rem;
+	position: fixed;
+	margin: 1.5rem;
+	border-radius: 1.5rem;
+	background-color: white;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	border: 1px solid var(--bg-200);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
 }
 
 .sidebarHeader {
+	display: flex;
+	padding: 2rem 1.5rem;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid var(--bg-200);
+	background-color: var(--bg-100);
 }
 
-.logo {
+.sidebarHeader .logo {
 	align-items: center;
 }
 
 .logoLink {
-}
-
-.logoText {
-}
-
-.toggler {
-}
-
-.sidebarNav {
-}
-
-.navList {
 	text-decoration: none;
 }
 
-.primaryNav {
+.logoLink:hover .logoText {
+	transform: scale(1.05);
+	transition: transform 0.2s ease;
 }
 
-.secondaryNav {
+.logoText {
+	font-size: 2rem;
+	font-weight: 800;
+	color: var(--primary-100);
+	margin: 0;
+	letter-spacing: -0.02em;
+	background: linear-gradient(135deg, var(--primary-100), var(--primary-200));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	transition: transform 0.2s ease;
+	padding-left: 0.4rem;
 }
 
-.navItem {
+.sidebarHeader .toggler {
+	height: 2.5rem;
+	width: 2.5rem;
+	border: none;
+	border-radius: 0.75rem;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border: 1px solid var(--bg-200);
+}
+
+.sidebarHeader .toggler:hover {
+	background-color: var(--bg-100);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sidebarHeader .toggler i {
+	font-size: 1.1rem;
+	color: var(--text-200);
+	transition: color 0.2s ease;
+}
+
+.sidebarHeader .toggler:hover i {
+	color: var(--primary-100);
+}
+
+.sidebarNav {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 1.5rem 0;
+}
+
+.sidebarNav .navList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sidebarNav .navItem {
 	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sidebarNav .navItem .navLink,
+.sidebarNav .navItem button {
+	display: flex;
+	align-items: center;
+	gap: 0.9rem;
+	padding: 0.875rem 1.5rem;
+	text-decoration: none;
+	color: var(--text-200);
+	font-weight: 500;
+	font-size: 0.95rem;
+	transition: all 0.2s ease;
+	border: none;
+	background: none;
+	width: 90%;
+	text-align: left;
+	cursor: pointer;
+	position: relative;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 0.2rem;
+	box-sizing: border-box;
+	border-radius: 0.8rem;
+}
+
+.sidebarNav .navItem .navLink:hover,
+.sidebarNav .navItem button:hover {
+	background-color: var(--bg-100);
+	color: var(--primary-100);
+	transform: translateX(4px);
+}
+
+.sidebarNav .navItem .navLink.active,
+.sidebarNav .navItem button.active {
+	background-color: var(--primary-300);
+	color: var(--primary-100);
+	border-right: 4px solid var(--primary-100);
+}
+
+.sidebarNav .navItem i {
+	font-size: 1.1rem;
+	width: 1.25rem;
+	text-align: center;
+	transition: transform 0.2s ease;
+}
+
+.sidebarNav .navItem .navLink:hover i,
+.sidebarNav .navItem button:hover i {
+	transform: scale(1.1);
+}
+
+.sidebarNav hr {
+	margin: 1rem 1.5rem;
+	border: none;
+	border-top: 1px solid var(--bg-200);
+	opacity: 0.6;
+}
+
+.sidebarNav .secondaryNav .navItem .navLink,
+.sidebarNav .secondaryNav .navItem button {
+	color: var(--text-200);
+}
+
+.sidebarNav .secondaryNav .navItem .navLink:hover,
+.sidebarNav .secondaryNav .navItem button:hover {
+	background-color: #fff5f5;
+	color: #dc2626;
+}
+
+.sidebarNav .secondaryNav .navItem .navLink:hover i,
+.sidebarNav .secondaryNav .navItem button:hover i {
+	color: #dc2626;
 }

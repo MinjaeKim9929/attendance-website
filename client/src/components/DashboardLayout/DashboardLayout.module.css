@@ -1,0 +1,13 @@
+body {
+}
+
+.dashboardLayout {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.dashboardLayout main {
+	flex: 1;
+	padding: 0;
+}
