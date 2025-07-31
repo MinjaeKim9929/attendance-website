@@ -26,7 +26,7 @@ export default function Signup() {
 	// Redirect if already authenticated
 	useEffect(() => {
 		if (isAuthenticated) {
-			navigate('/dashboard', { replace: true });
+			navigate('/console/dashboard', { replace: true });
 		}
 	}, [isAuthenticated, navigate]);
 
@@ -136,7 +136,7 @@ export default function Signup() {
 		const result = await signup(userData);
 
 		if (result.success) {
-			navigate('/dashboard', { replace: true });
+			navigate('/console/dashboard', { replace: true });
 		}
 		// Error is handled by the auth context
 	};

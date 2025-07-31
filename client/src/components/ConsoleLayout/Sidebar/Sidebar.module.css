@@ -1,7 +1,7 @@
-/* Sidebar.module.css */
 .sidebar {
+	min-height: 650px;
 	height: calc(100vh - 3.6rem);
-	width: 19.2rem;
+	width: 18rem;
 	position: fixed;
 	margin: 1.8rem;
 	border-radius: 1.8rem;
@@ -16,6 +16,18 @@
 	will-change: width, transform;
 	transform: scale(1);
 	animation: subtleScaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	z-index: 1000;
+}
+
+/* Disable animations during resize */
+.sidebar.resizing {
+	transition: none !important;
+	animation: none !important;
+}
+
+.sidebar.resizing * {
+	transition: none !important;
+	animation: none !important;
 }
 
 @keyframes subtleScaleIn {
@@ -41,8 +53,7 @@
 	display: flex;
 	padding: 2.4rem 1.8rem;
 	justify-content: space-between;
-	border-bottom: 1px solid var(--bg-200);
-	background-color: var(--bg-100);
+	border-bottom: 2px solid var(--bg-200);
 	position: relative;
 	min-height: 6rem;
 }
@@ -89,6 +100,7 @@
 .sidebarHeader .toggler {
 	height: 3rem;
 	width: 3rem;
+	margin-top: -7px;
 	border: none;
 	border-radius: 0.9rem;
 	background-color: white;
@@ -155,6 +167,13 @@
 	transform: translateY(8px);
 }
 
+/* Ensure items are visible when resizing or animations are disabled */
+.sidebar.resizing .sidebarNav .navItem {
+	opacity: 1 !important;
+	transform: translateY(0) !important;
+	animation: none !important;
+}
+
 @keyframes fadeInUp {
 	to {
 		opacity: 1;
@@ -214,7 +233,6 @@
 	font-size: 1.32rem;
 	width: 1.5rem;
 	text-align: center;
-	/* transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); */
 	flex-shrink: 0;
 }
 
@@ -236,7 +254,6 @@
 	overflow: hidden;
 	transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
 	background-color: var(--bg-50);
-	margin: 0 0.6rem;
 	border-radius: 0.6rem;
 }
 
@@ -250,13 +267,13 @@
 
 .subItem li a {
 	display: block;
-	padding: 0.6rem 3rem;
+	padding: 0.6rem 0.8rem 0.6rem 0.8rem;
 	color: var(--text-300);
 	text-decoration: none;
 	font-size: 1.05rem;
 	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 	border-radius: 0.3rem;
-	margin: 0.15rem 0.6rem;
+	margin: 0.05rem 0rem;
 }
 
 .subItem li a:hover {
@@ -309,12 +326,21 @@
 }
 
 .hoverTooltip .tooltipItem {
-	margin-top: 0.2rem;
-	padding: 0.2rem 1.3rem;
-	color: var(--text-200);
+	margin: 0.05rem 1rem;
+	padding: 0.5rem 0.9rem;
 	font-size: 0.9rem;
 	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 	cursor: pointer;
+	border-radius: 0.4rem;
+}
+
+.hoverTooltip .tooltipItem a {
+	text-decoration: none;
+	color: var(--text-200);
+}
+
+.hoverTooltip .tooltipItem:first-child {
+	margin-top: 0.2rem;
 }
 
 .hoverTooltip .tooltipItem:last-child {
@@ -324,6 +350,7 @@
 .hoverTooltip .tooltipItem:hover {
 	background-color: var(--bg-100);
 	color: var(--primary-100);
+	transform: translateY(-2px);
 }
 
 .sidebar.close .subItem {
@@ -377,4 +404,252 @@
 .sidebar.close .profileName {
 	opacity: 0;
 	transform: translateX(-12px);
+}
+
+/* Mobile overlay when menu is open */
+.mobileOverlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 999;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.mobileOverlay.show {
+	opacity: 1;
+}
+
+/* Collapsed topbar for mobile - always visible */
+.mobileTopbar {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: (100vw - 3rem);
+	height: 4rem;
+	background-color: rgba(255, 255, 255, 0.98);
+	backdrop-filter: blur(4px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid var(--bg-200);
+	z-index: 1001;
+	padding: 0 1.5rem;
+	align-items: center;
+	justify-content: space-between;
+	transition: all 0.3s ease;
+}
+
+.mobileToggler {
+	height: 2.4rem;
+	width: 2.4rem;
+	border: none;
+	border-radius: 0.6rem;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+	border: 1px solid var(--bg-200);
+}
+
+.mobileToggler:hover {
+	background-color: var(--bg-100);
+	transform: translateY(-1px);
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+}
+
+.mobileToggler i {
+	font-size: 1.2rem;
+	color: var(--text-200);
+	transition: color 0.2s ease;
+}
+
+.mobileToggler:hover i {
+	color: var(--primary-100);
+}
+
+.mobileTopbar .logo {
+	display: flex;
+	align-items: center;
+}
+
+.mobileTopbar .logoText {
+	font-size: 1.5rem;
+	padding-left: 0;
+	margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 689px) or (max-height: 699px) {
+	.mobileOverlay {
+		display: block;
+	}
+
+	.mobileTopbar {
+		display: flex;
+	}
+
+	.sidebar {
+		position: fixed;
+		top: 4rem;
+		left: 0;
+		right: 0;
+		width: 100%;
+		height: auto;
+		min-height: auto;
+		margin: 0;
+		border-radius: 0 0 1.2rem 1.2rem;
+		transform: translateY(-100%);
+		opacity: 0;
+		pointer-events: none;
+		transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			box-shadow 0.3s ease;
+		z-index: 1000;
+		max-height: calc(100vh - 4rem);
+		overflow-y: auto;
+		animation: none;
+	}
+
+	.sidebar.mobileOpen {
+		transform: translateY(0);
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.sidebar.close {
+		width: 100%;
+		transform: translateY(-100%);
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.sidebar.close.mobileOpen {
+		transform: translateY(0);
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.sidebarHeader {
+		display: none;
+	}
+
+	.sidebar.close .sidebarHeader {
+		padding: 1.2rem 1.5rem;
+	}
+
+	.sidebarHeader .logo {
+		transform: none !important;
+	}
+
+	.sidebar.close .sidebarHeader .logo {
+		transform: none !important;
+	}
+
+	.logoText {
+		font-size: 1.5rem;
+		padding-left: 0;
+	}
+
+	.sidebarHeader .toggler {
+		position: static !important;
+		transform: none !important;
+		margin-top: 0;
+		width: 2.5rem;
+		height: 2.5rem;
+	}
+
+	.sidebar.close .sidebarHeader .toggler {
+		position: static !important;
+		transform: none !important;
+		left: auto;
+		top: auto;
+	}
+
+	.sidebarHeader .toggler:hover {
+		transform: scale(1.1) !important;
+	}
+
+	.sidebarNav {
+		padding: 1rem 0 1.5rem 0;
+		max-height: calc(100vh - 6rem);
+		overflow-y: auto;
+	}
+
+	.sidebarNav .navItem .navLink,
+	.sidebarNav .navItem button {
+		margin: 0 1rem 0.3rem 1rem;
+		padding: 1rem 1.2rem;
+		width: calc(100% - 2rem);
+		font-size: 1.1rem;
+	}
+
+	.sidebarNav .navItem {
+		animation: none !important;
+		opacity: 1 !important;
+		transform: translateY(0) !important;
+	}
+
+	.navLabel {
+		opacity: 1 !important;
+		transform: translateX(0) !important;
+		pointer-events: auto !important;
+	}
+
+	.sidebar.close .navLabel {
+		opacity: 1 !important;
+		transform: translateX(0) !important;
+		pointer-events: auto !important;
+	}
+
+	.dropdownArrow {
+		opacity: 1 !important;
+	}
+
+	.sidebar.close .dropdownArrow {
+		opacity: 1 !important;
+	}
+
+	.subItem {
+		margin: 0 1rem;
+		border-radius: 0.6rem;
+	}
+
+	.sidebar.close .subItem {
+		display: block;
+	}
+
+	.hoverTooltip {
+		display: none !important;
+	}
+
+	.profileName {
+		opacity: 1 !important;
+		transform: translateX(0) !important;
+	}
+
+	.sidebar.close .profileName {
+		opacity: 1 !important;
+		transform: translateX(0) !important;
+	}
+
+	.sidebarNav hr {
+		margin: 1rem 1.5rem;
+	}
+
+	.sidebar.close .sidebarNav .secondaryNav hr {
+		margin: 1rem 1.5rem;
+	}
+}
+
+@media (min-width: 769px) and (min-height: 691px) {
+	.mobileOverlay {
+		display: none !important;
+	}
 }
