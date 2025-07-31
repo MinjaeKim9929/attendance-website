@@ -1,34 +1,54 @@
+/* Sidebar.module.css */
 .sidebar {
-	height: calc(100vh - 3rem);
-	width: 16rem;
+	height: calc(100vh - 3.6rem);
+	width: 19.2rem;
 	position: fixed;
-	margin: 1.5rem;
-	border-radius: 1.5rem;
-	background-color: white;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	margin: 1.8rem;
+	border-radius: 1.8rem;
+	background-color: rgba(255, 255, 255, 0.98);
+	backdrop-filter: blur(4px);
+	box-shadow: 0 4.8px 14.4px rgba(0, 0, 0, 0.08);
 	border: 1px solid var(--bg-200);
 	display: flex;
 	flex-direction: column;
-	transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
 	overflow: visible;
+	will-change: width, transform;
+	transform: scale(1);
+	animation: subtleScaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes subtleScaleIn {
+	0% {
+		transform: scale(0.98);
+		opacity: 0.9;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.sidebar:hover {
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
 .sidebar.close {
-	width: 4rem;
+	width: 4.8rem;
 }
 
 .sidebarHeader {
 	display: flex;
-	padding: 2rem 1.5rem;
+	padding: 2.4rem 1.8rem;
 	justify-content: space-between;
 	border-bottom: 1px solid var(--bg-200);
 	background-color: var(--bg-100);
 	position: relative;
-	min-height: 5rem;
+	min-height: 6rem;
 }
 
 .sidebar.close .sidebarHeader {
-	padding: 2rem 1.5rem;
+	padding: 2.4rem 1.8rem;
 }
 
 .sidebarHeader .logo {
@@ -36,11 +56,11 @@
 	overflow: hidden;
 	position: relative;
 	flex-shrink: 0;
-	transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar.close .sidebarHeader .logo {
-	transform: translateX(-1.3rem);
+	transform: translateX(-1.56rem);
 }
 
 .logoLink {
@@ -49,35 +69,35 @@
 
 .logoLink:hover .logoText {
 	transform: scale(1.05);
-	transition: transform 0.2s ease;
+	transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logoText {
-	font-size: 1.6rem;
+	font-size: 1.92rem;
 	font-weight: 800;
 	color: var(--primary-100);
 	margin: 0;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.024em;
 	background: linear-gradient(135deg, var(--primary-100), var(--primary-200));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	transition: transform 0.2s ease;
-	padding-left: 0.4rem;
+	transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	padding-left: 0.48rem;
 }
 
 .sidebarHeader .toggler {
-	height: 2.5rem;
-	width: 2.5rem;
+	height: 3rem;
+	width: 3rem;
 	border: none;
-	border-radius: 0.75rem;
+	border-radius: 0.9rem;
 	background-color: white;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	box-shadow: 0 2.4px 4.8px rgba(0, 0, 0, 0.1);
 	border: 1px solid var(--bg-200);
 	flex-shrink: 0;
 }
@@ -85,24 +105,25 @@
 .sidebar.close .sidebarHeader .toggler {
 	position: absolute;
 	left: 50%;
-	top: calc(55% + 0.5rem);
+	top: calc(55% + 0.6rem);
 	transform: translateX(-50%);
 }
 
 .sidebarHeader .toggler:hover {
 	background-color: var(--bg-100);
-	transform: translateY(-1px);
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+	transform: translateY(-1.2px) scale(1.1);
+	box-shadow: 0 4.8px 9.6px rgba(0, 0, 0, 0.15);
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar.close .sidebarHeader .toggler:hover {
-	transform: translate(-50%, -1px);
+	transform: translate(-50%, -1.2px) scale(1.1);
 }
 
 .sidebarHeader .toggler i {
-	font-size: 1.1rem;
+	font-size: 1.32rem;
 	color: var(--text-200);
-	transition: color 0.2s ease;
+	transition: color 0.2s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebarHeader .toggler:hover i {
@@ -113,7 +134,7 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	padding: 1.5rem 0;
+	padding: 1.8rem 0;
 	justify-content: space-between;
 	overflow: visible;
 }
@@ -129,28 +150,51 @@
 	margin: 0;
 	padding: 0;
 	position: relative;
+	animation: fadeInUp 0.3s ease forwards;
+	opacity: 0;
+	transform: translateY(8px);
+}
+
+@keyframes fadeInUp {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.sidebarNav .navItem:nth-child(1) {
+	animation-delay: 0.05s;
+}
+.sidebarNav .navItem:nth-child(2) {
+	animation-delay: 0.1s;
+}
+.sidebarNav .navItem:nth-child(3) {
+	animation-delay: 0.15s;
+}
+.sidebarNav .navItem:nth-child(4) {
+	animation-delay: 0.2s;
 }
 
 .sidebarNav .navItem .navLink,
 .sidebarNav .navItem button {
 	display: flex;
 	align-items: center;
-	gap: 0.9rem;
-	padding: 0.875rem;
+	gap: 1.08rem;
+	padding: 1.05rem;
 	text-decoration: none;
 	color: var(--text-200);
 	font-weight: 500;
-	font-size: 0.95rem;
-	transition: all 0.2s ease;
+	font-size: 1.14rem;
+	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 	border: none;
 	background: none;
-	width: calc(100% - 1rem);
+	width: calc(100% - 1.2rem);
 	text-align: left;
 	cursor: pointer;
 	position: relative;
-	margin: 0 0.5rem 0.2rem 0.5rem;
+	margin: 0 0.6rem 0.24rem 0.6rem;
 	box-sizing: border-box;
-	border-radius: 0.8rem;
+	border-radius: 0.96rem;
 }
 
 .sidebarNav .navItem .navLink:hover,
@@ -166,10 +210,10 @@
 }
 
 .sidebarNav .navItem i {
-	font-size: 1.1rem;
-	width: 1.25rem;
+	font-size: 1.32rem;
+	width: 1.5rem;
 	text-align: center;
-	transition: transform 0.2s ease;
+	transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 	flex-shrink: 0;
 }
 
@@ -178,9 +222,8 @@
 	transform: scale(1.1);
 }
 
-/* Nav label animations */
 .navLabel {
-	transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	opacity: 1;
 	transform: translateX(0);
 	white-space: nowrap;
@@ -188,22 +231,21 @@
 
 .sidebar.close .navLabel {
 	opacity: 0;
-	transform: translateX(-10px);
+	transform: translateX(-12px);
 	pointer-events: none;
 }
 
-/* Submenu styles */
 .subItem {
 	max-height: 0;
 	overflow: hidden;
-	transition: max-height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
 	background-color: var(--bg-50);
-	margin: 0 0.5rem;
-	border-radius: 0.5rem;
+	margin: 0 0.6rem;
+	border-radius: 0.6rem;
 }
 
 .subItem.open {
-	max-height: 200px;
+	max-height: 240px;
 }
 
 .subItem li {
@@ -212,13 +254,13 @@
 
 .subItem li a {
 	display: block;
-	padding: 0.5rem 2.5rem;
+	padding: 0.6rem 3rem;
 	color: var(--text-300);
 	text-decoration: none;
-	font-size: 0.875rem;
-	transition: all 0.2s ease;
-	border-radius: 0.25rem;
-	margin: 0.125rem 0.5rem;
+	font-size: 1.05rem;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	border-radius: 0.3rem;
+	margin: 0.15rem 0.6rem;
 }
 
 .subItem li a:hover {
@@ -226,10 +268,9 @@
 	color: var(--primary-100);
 }
 
-/* Dropdown arrow animation */
 .dropdownArrow {
 	margin-left: auto;
-	transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dropdownArrow.open {
@@ -240,21 +281,20 @@
 	opacity: 0;
 }
 
-/* Hover tooltip for closed sidebar */
 .hoverTooltip {
 	position: absolute;
-	left: calc(100% + 10px);
+	left: calc(100% + 12px);
 	top: 0;
 	background: white;
 	border: 1px solid var(--bg-200);
-	border-radius: 0.75rem;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	padding: 0.5rem 0;
-	min-width: 180px;
+	border-radius: 0.9rem;
+	box-shadow: 0 4.8px 14.4px rgba(0, 0, 0, 0.15);
+	padding: 0.6rem 0;
+	min-width: 216px;
 	opacity: 0;
 	visibility: hidden;
-	transform: translateX(-10px);
-	transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transform: translateX(-12px);
+	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.1s;
 	z-index: 1000;
 }
 
@@ -262,28 +302,27 @@
 	opacity: 1;
 	visibility: visible;
 	transform: translateX(0);
+	transition-delay: 0.15s;
 }
 
 .hoverTooltip .tooltipTitle {
-	padding: 0.5rem 1rem;
+	padding: 0.4rem 1.3rem;
 	font-weight: 600;
 	color: var(--text-100);
-}
-
-.hoverTooltip hr {
-	margin: 1rem 1.5rem;
-	border: none;
-	border-top: 1.6px solid var(--bg-300);
-	opacity: 0.6;
+	font-size: 1.1rem;
 }
 
 .hoverTooltip .tooltipItem {
-	margin-top: 0.25rem;
-	padding: 0.375rem 1rem;
+	margin-top: 0.2rem;
+	padding: 0.2rem 1.3rem;
 	color: var(--text-200);
-	font-size: 0.875rem;
-	transition: all 0.2s ease;
+	font-size: 0.9rem;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 	cursor: pointer;
+}
+
+.hoverTooltip .tooltipItem:last-child {
+	margin-bottom: 0.2rem;
 }
 
 .hoverTooltip .tooltipItem:hover {
@@ -291,13 +330,12 @@
 	color: var(--primary-100);
 }
 
-/* Hide subitems when sidebar is closed */
 .sidebar.close .subItem {
 	display: none;
 }
 
 .sidebarNav hr {
-	margin: 1rem 1.5rem;
+	margin: 1.2rem 1.8rem;
 	border: none;
 	border-top: 1px solid var(--bg-200);
 	opacity: 0.6;
@@ -320,20 +358,21 @@
 }
 
 .sidebarNav .secondaryNav hr {
-	margin: 1rem 1.5rem;
+	margin: 1.2rem 1.8rem;
 	border: none;
-	border-top: 1.6px solid var(--bg-300);
+	border-top: 1.92px solid var(--bg-300);
 	opacity: 0.6;
 }
+
 .sidebar.close .sidebarNav .secondaryNav hr {
-	margin: 1rem 1rem;
+	margin: 1.2rem 1.2rem;
 	border: none;
-	border-top: 1.6px solid var(--bg-300);
+	border-top: 1.92px solid var(--bg-300);
 	opacity: 0.6;
 }
 
 .profileName {
-	transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	opacity: 1;
 	transform: translateX(0);
 	white-space: nowrap;
@@ -341,5 +380,5 @@
 
 .sidebar.close .profileName {
 	opacity: 0;
-	transform: translateX(-10px);
+	transform: translateX(-12px);
 }

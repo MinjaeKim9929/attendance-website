@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar() {
 	const location = useLocation();
-	const [isClosed, setIsClosed] = useState(false);
+	const [isClosed, setIsClosed] = useState(() => {
+		const savedState = localStorage.getItem('sidebarClosed');
+		return savedState ? JSON.parse(savedState) : false;
+	});
 	const [openSubmenu, setOpenSubmenu] = useState(null);
+
+	// Save state to localStorage whenever it changes
+	useEffect(() => {
+		localStorage.setItem('sidebarClosed', JSON.stringify(isClosed));
+	}, [isClosed]);
 
 	const handleLogout = () => {
 		// TODO: Implement logout functionality
@@ -82,9 +90,6 @@ export default function Sidebar() {
 						{!isClosed && (
 							<ul className={`${styles.subItem} ${openSubmenu === 'attendances' ? styles.open : ''}`}>
 								<li>
-									<Link to="/attendances">Attendances</Link>
-								</li>
-								<li>
 									<Link to="/attendances/view">View Attendances</Link>
 								</li>
 								<li>
@@ -96,8 +101,9 @@ export default function Sidebar() {
 						{isClosed && (
 							<div className={styles.hoverTooltip}>
 								<div className={styles.tooltipTitle}>Attendances</div>
-								<hr className={styles.tooltipDivider} />
-								<div className={styles.tooltipItem}>View Attendances</div>
+								<div className={styles.tooltipItem}>
+									<Link to="/attendances/view">View Attendances</Link>
+								</div>
 								<div className={styles.tooltipItem}>Add Attendance</div>
 							</div>
 						)}
