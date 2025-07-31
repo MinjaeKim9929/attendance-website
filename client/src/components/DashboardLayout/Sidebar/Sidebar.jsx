@@ -52,9 +52,8 @@ export default function Sidebar() {
 					</li>
 				</ul>
 
-				<hr />
-
 				<ul className={`${styles.navList} ${styles.secondaryNav}`}>
+					<hr />
 					<li className={styles.navItem}>
 						<button onClick={handleLogout}>
 							<i className="fas fa-arrow-right-from-bracket"></i>
