@@ -45,7 +45,7 @@ export default function Sidebar() {
 		<div className={`${styles.sidebar} ${isClosed ? styles.close : ''}`}>
 			<header className={styles.sidebarHeader}>
 				<div className={styles.logo}>
-					<Link to="/dashboard" className={styles.logoLink}>
+					<Link to="/console/dashboard" className={styles.logoLink}>
 						<h1 className={styles.logoText}>AW</h1>
 					</Link>
 				</div>
@@ -58,7 +58,10 @@ export default function Sidebar() {
 				<ul className={`${styles.navList} ${styles.primaryNav}`}>
 					{/* Dashboard */}
 					<li className={styles.navItem}>
-						<Link to="/dashboard" className={`${styles.navLink} ${isActive('/dashboard') ? styles.active : ''}`}>
+						<Link
+							to="/console/dashboard"
+							className={`${styles.navLink} ${isActive('/console/dashboard') ? styles.active : ''}`}
+						>
 							<i className="fas fa-chart-line" />
 							<span className={styles.navLabel}>Dashboard</span>
 						</Link>

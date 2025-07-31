@@ -199,8 +199,9 @@
 
 .sidebarNav .navItem .navLink:hover,
 .sidebarNav .navItem button:hover {
-	background-color: var(--bg-100);
+	background-color: var(--bg-200);
 	color: var(--primary-100);
+	transform: scale(1.03);
 }
 
 .sidebarNav .navItem .navLink.active,
@@ -213,13 +214,8 @@
 	font-size: 1.32rem;
 	width: 1.5rem;
 	text-align: center;
-	transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	/* transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); */
 	flex-shrink: 0;
-}
-
-.sidebarNav .navItem .navLink:hover i,
-.sidebarNav .navItem button:hover i {
-	transform: scale(1.1);
 }
 
 .navLabel {

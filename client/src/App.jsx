@@ -3,14 +3,14 @@ import Home from './pages/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Unauthorized from './pages/Unauthorized/Unauthorized';
-import DashboardHome from './pages/Dashboard/DashboardHome';
-import Profile from './pages/Dashboard/Profile/Profile';
-import Settings from './pages/Dashboard/Settings/Settings';
+import Dashboard from './pages/console/Dashboard/Dashboard';
+import Profile from './pages/console/Profile/Profile';
+import Settings from './pages/console/Settings/Settings';
 import NotFound from './pages/NotFound/NotFound';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 export default function App() {
 	return (
@@ -24,16 +24,16 @@ export default function App() {
 					<Route path="/unauthorized" element={<Unauthorized />} />
 
 					{/* Protected Routes - User and Admin */}
-					<Route
-						path="/dashboard"
+					{/* <Route
+						path="/console/dashboard"
 						element={
 							<ProtectedRoute>
-								<DashboardHome />
+								<Dashboard />
 							</ProtectedRoute>
 						}
 					/>
 					<Route
-						path="/dashboard/profile"
+						path="/console/profile"
 						element={
 							<ProtectedRoute>
 								<Profile />
@@ -41,13 +41,41 @@ export default function App() {
 						}
 					/>
 					<Route
-						path="/dashboard/settings"
+						path="/console/settings"
 						element={
 							<ProtectedRoute>
 								<Settings />
 							</ProtectedRoute>
 						}
-					/>
+					/> */}
+
+					<Route path="/console">
+						<Route index element={<Navigate to="dashboard" replaces />} />
+						<Route
+							path="dashboard"
+							element={
+								<ProtectedRoute>
+									<Dashboard />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="profile"
+							element={
+								<ProtectedRoute>
+									<Profile />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="settings"
+							element={
+								<ProtectedRoute>
+									<Settings />
+								</ProtectedRoute>
+							}
+						/>
+					</Route>
 
 					{/* 404 Page */}
 					<Route path="*" element={<NotFound />} />

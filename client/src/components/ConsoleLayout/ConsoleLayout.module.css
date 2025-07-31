@@ -1,13 +1,13 @@
 body {
 }
 
-.dashboardLayout {
+.consoleLayout {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 }
 
-.dashboardLayout main {
+.consoleLayout main {
 	flex: 1;
 	padding: 0;
 }

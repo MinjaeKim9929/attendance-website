@@ -13,6 +13,10 @@ export default function ProtectedRoute({ children, requireAdmin = false }) {
 	const { isAuthenticated, isLoading, user } = useAuth();
 	const location = useLocation();
 
+	if (location.pathname === '/console') {
+		return <Navigate to="/console/dashboard" replace />;
+	}
+
 	if (isLoading) {
 		return <LoadingSpinner />;
 	}
