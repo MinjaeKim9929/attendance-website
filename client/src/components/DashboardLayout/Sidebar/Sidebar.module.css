@@ -9,20 +9,38 @@
 	border: 1px solid var(--bg-200);
 	display: flex;
 	flex-direction: column;
-	overflow: hidden;
+	transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	overflow: visible;
+}
+
+.sidebar.close {
+	width: 4rem;
 }
 
 .sidebarHeader {
 	display: flex;
 	padding: 2rem 1.5rem;
-	align-items: center;
 	justify-content: space-between;
 	border-bottom: 1px solid var(--bg-200);
 	background-color: var(--bg-100);
+	position: relative;
+	min-height: 5rem;
+}
+
+.sidebar.close .sidebarHeader {
+	padding: 2rem 1.5rem;
 }
 
 .sidebarHeader .logo {
 	align-items: center;
+	overflow: hidden;
+	position: relative;
+	flex-shrink: 0;
+	transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sidebar.close .sidebarHeader .logo {
+	transform: translateX(-1.3rem);
 }
 
 .logoLink {
@@ -35,7 +53,7 @@
 }
 
 .logoText {
-	font-size: 2rem;
+	font-size: 1.6rem;
 	font-weight: 800;
 	color: var(--primary-100);
 	margin: 0;
@@ -58,15 +76,27 @@
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	transition: all 0.2s ease;
+	transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	border: 1px solid var(--bg-200);
+	flex-shrink: 0;
+}
+
+.sidebar.close .sidebarHeader .toggler {
+	position: absolute;
+	left: 50%;
+	top: calc(55% + 0.5rem);
+	transform: translateX(-50%);
 }
 
 .sidebarHeader .toggler:hover {
 	background-color: var(--bg-100);
 	transform: translateY(-1px);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar.close .sidebarHeader .toggler:hover {
+	transform: translate(-50%, -1px);
 }
 
 .sidebarHeader .toggler i {
@@ -85,6 +115,7 @@
 	flex-direction: column;
 	padding: 1.5rem 0;
 	justify-content: space-between;
+	overflow: visible;
 }
 
 .sidebarNav .navList {
@@ -97,6 +128,7 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	position: relative;
 }
 
 .sidebarNav .navItem .navLink,
@@ -104,7 +136,7 @@
 	display: flex;
 	align-items: center;
 	gap: 0.9rem;
-	padding: 0.875rem 1.5rem;
+	padding: 0.875rem;
 	text-decoration: none;
 	color: var(--text-200);
 	font-weight: 500;
@@ -112,13 +144,11 @@
 	transition: all 0.2s ease;
 	border: none;
 	background: none;
-	width: 90%;
+	width: calc(100% - 1rem);
 	text-align: left;
 	cursor: pointer;
 	position: relative;
-	margin-left: 5%;
-	margin-right: 5%;
-	margin-bottom: 0.2rem;
+	margin: 0 0.5rem 0.2rem 0.5rem;
 	box-sizing: border-box;
 	border-radius: 0.8rem;
 }
@@ -127,14 +157,12 @@
 .sidebarNav .navItem button:hover {
 	background-color: var(--bg-100);
 	color: var(--primary-100);
-	transform: translateX(4px);
 }
 
 .sidebarNav .navItem .navLink.active,
 .sidebarNav .navItem button.active {
 	background-color: var(--primary-300);
 	color: var(--primary-100);
-	border-right: 4px solid var(--primary-100);
 }
 
 .sidebarNav .navItem i {
@@ -142,11 +170,130 @@
 	width: 1.25rem;
 	text-align: center;
 	transition: transform 0.2s ease;
+	flex-shrink: 0;
 }
 
 .sidebarNav .navItem .navLink:hover i,
 .sidebarNav .navItem button:hover i {
 	transform: scale(1.1);
+}
+
+/* Nav label animations */
+.navLabel {
+	transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	opacity: 1;
+	transform: translateX(0);
+	white-space: nowrap;
+}
+
+.sidebar.close .navLabel {
+	opacity: 0;
+	transform: translateX(-10px);
+	pointer-events: none;
+}
+
+/* Submenu styles */
+.subItem {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	background-color: var(--bg-50);
+	margin: 0 0.5rem;
+	border-radius: 0.5rem;
+}
+
+.subItem.open {
+	max-height: 200px;
+}
+
+.subItem li {
+	list-style: none;
+}
+
+.subItem li a {
+	display: block;
+	padding: 0.5rem 2.5rem;
+	color: var(--text-300);
+	text-decoration: none;
+	font-size: 0.875rem;
+	transition: all 0.2s ease;
+	border-radius: 0.25rem;
+	margin: 0.125rem 0.5rem;
+}
+
+.subItem li a:hover {
+	background-color: var(--bg-100);
+	color: var(--primary-100);
+}
+
+/* Dropdown arrow animation */
+.dropdownArrow {
+	margin-left: auto;
+	transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.dropdownArrow.open {
+	transform: rotate(180deg);
+}
+
+.sidebar.close .dropdownArrow {
+	opacity: 0;
+}
+
+/* Hover tooltip for closed sidebar */
+.hoverTooltip {
+	position: absolute;
+	left: calc(100% + 10px);
+	top: 0;
+	background: white;
+	border: 1px solid var(--bg-200);
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	padding: 0.5rem 0;
+	min-width: 180px;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateX(-10px);
+	transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	z-index: 1000;
+}
+
+.sidebar.close .navItem:hover .hoverTooltip {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(0);
+}
+
+.hoverTooltip .tooltipTitle {
+	padding: 0.5rem 1rem;
+	font-weight: 600;
+	color: var(--text-100);
+}
+
+.hoverTooltip hr {
+	margin: 1rem 1.5rem;
+	border: none;
+	border-top: 1.6px solid var(--bg-300);
+	opacity: 0.6;
+}
+
+.hoverTooltip .tooltipItem {
+	margin-top: 0.25rem;
+	padding: 0.375rem 1rem;
+	color: var(--text-200);
+	font-size: 0.875rem;
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+
+.hoverTooltip .tooltipItem:hover {
+	background-color: var(--bg-100);
+	color: var(--primary-100);
+}
+
+/* Hide subitems when sidebar is closed */
+.sidebar.close .subItem {
+	display: none;
 }
 
 .sidebarNav hr {
@@ -177,4 +324,22 @@
 	border: none;
 	border-top: 1.6px solid var(--bg-300);
 	opacity: 0.6;
+}
+.sidebar.close .sidebarNav .secondaryNav hr {
+	margin: 1rem 1rem;
+	border: none;
+	border-top: 1.6px solid var(--bg-300);
+	opacity: 0.6;
+}
+
+.profileName {
+	transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	opacity: 1;
+	transform: translateX(0);
+	white-space: nowrap;
+}
+
+.sidebar.close .profileName {
+	opacity: 0;
+	transform: translateX(-10px);
 }
