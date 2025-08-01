@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Sidebar.module.css';
+import { useSidebar } from '../../../context/SidebarContext';
 
 export default function Sidebar() {
 	const location = useLocation();
-	const [isClosed, setIsClosed] = useState(() => {
-		if (window.innerWidth <= 689 || window.innerHeight <= 699) {
-			return false;
-		}
-		const savedState = localStorage.getItem('sidebarClosed');
-		return savedState ? JSON.parse(savedState) : false;
-	});
+	const { isSidebarClosed, setIsSidebarClosed, isMobile } = useSidebar();
 	const [openSubmenu, setOpenSubmenu] = useState(null);
-	const [isMobile, setIsMobile] = useState(false);
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [isResizing, setIsResizing] = useState(false);
 
@@ -48,15 +42,13 @@ export default function Sidebar() {
 				}, 150);
 			}
 
-			setIsMobile(mobile);
-
 			if (mobile) {
-				setIsClosed(false);
+				setIsSidebarClosed(false);
 				setMobileMenuOpen(false);
 			} else {
 				setMobileMenuOpen(false);
 				const savedState = localStorage.getItem('sidebarClosed');
-				setIsClosed(savedState ? JSON.parse(savedState) : false);
+				setIsSidebarClosed(savedState ? JSON.parse(savedState) : false);
 				setIsResizing(false);
 			}
 		};
@@ -67,14 +59,14 @@ export default function Sidebar() {
 			window.removeEventListener('resize', checkMobile);
 			if (resizeTimer) clearTimeout(resizeTimer);
 		};
-	}, [isMobile]);
+	}, [isMobile, setIsSidebarClosed]);
 
 	// Save state to localStorage only for desktop
 	useEffect(() => {
 		if (!isMobile) {
-			localStorage.setItem('sidebarClosed', JSON.stringify(isClosed));
+			localStorage.setItem('sidebarClosed', JSON.stringify(isSidebarClosed));
 		}
-	}, [isClosed, isMobile]);
+	}, [isSidebarClosed, isMobile]);
 
 	// Close mobile menu when clicking outside
 	useEffect(() => {
@@ -126,7 +118,7 @@ export default function Sidebar() {
 			setMobileMenuOpen((prev) => !prev);
 			setOpenSubmenu(null);
 		} else {
-			setIsClosed(!isClosed);
+			setIsSidebarClosed((prev) => !prev);
 			// Close all submenus when sidebar is toggled
 			setOpenSubmenu(null);
 		}
@@ -134,7 +126,7 @@ export default function Sidebar() {
 
 	const handleSubmenuToggle = (submenuName, event) => {
 		// Prevent any action if sidebar is closed on desktop
-		if (!isMobile && isClosed) {
+		if (!isMobile && isSidebarClosed) {
 			event.preventDefault();
 			event.stopPropagation();
 			return;
@@ -155,7 +147,7 @@ export default function Sidebar() {
 
 	const sidebarClasses = [
 		styles.sidebar,
-		isClosed && !isMobile ? styles.close : '',
+		isSidebarClosed && !isMobile ? styles.close : '',
 		isMobile && mobileMenuOpen ? styles.mobileOpen : '',
 		isResizing ? styles.resizing : '',
 	]
@@ -168,7 +160,7 @@ export default function Sidebar() {
 			{isMobile && (
 				<div className={styles.mobileTopbar}>
 					<div className={styles.logo}>
-						<Link to="/console/dashboard" className={styles.logoLink} onClick={handleLinkClick}>
+						<Link to="/console/home" className={styles.logoLink} onClick={handleLinkClick}>
 							<h1 className={styles.logoText}>AW</h1>
 						</Link>
 					</div>
@@ -196,7 +188,7 @@ export default function Sidebar() {
 				{!isMobile && (
 					<header className={styles.sidebarHeader}>
 						<div className={styles.logo}>
-							<Link to="/console/dashboard" className={styles.logoLink} onClick={handleLinkClick}>
+							<Link to="/console/home" className={styles.logoLink} onClick={handleLinkClick}>
 								<h1 className={styles.logoText}>AW</h1>
 							</Link>
 						</div>
@@ -204,28 +196,28 @@ export default function Sidebar() {
 							className={styles.toggler}
 							onClick={handleToggler}
 							type="button"
-							aria-label={isClosed ? 'Expand sidebar' : 'Collapse sidebar'}
+							aria-label={isSidebarClosed ? 'Expand sidebar' : 'Collapse sidebar'}
 						>
-							<i className={`fas ${isClosed ? 'fa-angles-right' : 'fa-angles-left'}`} />
+							<i className={`fas ${isSidebarClosed ? 'fa-angles-right' : 'fa-angles-left'}`} />
 						</button>
 					</header>
 				)}
 
 				<nav className={styles.sidebarNav}>
 					<ul className={`${styles.navList} ${styles.primaryNav}`}>
-						{/* Dashboard */}
+						{/* Home */}
 						<li className={styles.navItem}>
 							<Link
-								to="/console/dashboard"
-								className={`${styles.navLink} ${isActive('/console/dashboard') ? styles.active : ''}`}
+								to="/console/home"
+								className={`${styles.navLink} ${isActive('/console/home') ? styles.active : ''}`}
 								onClick={handleLinkClick}
 							>
-								<i className="fas fa-chart-line" />
-								<span className={styles.navLabel}>Dashboard</span>
+								<i className="fas fa-home" />
+								<span className={styles.navLabel}>Home</span>
 							</Link>
-							{!isMobile && isClosed && (
+							{!isMobile && isSidebarClosed && (
 								<div className={styles.hoverTooltip}>
-									<div className={styles.tooltipTitle}>Dashboard</div>
+									<div className={styles.tooltipTitle}>Home</div>
 								</div>
 							)}
 						</li>
@@ -235,11 +227,11 @@ export default function Sidebar() {
 							<div
 								className={`${styles.navLink} ${isActive('/attendances') ? styles.active : ''}`}
 								onClick={(event) => handleSubmenuToggle('attendances', event)}
-								style={{ cursor: !isMobile && isClosed ? 'default' : 'pointer' }}
+								style={{ cursor: !isMobile && isSidebarClosed ? 'default' : 'pointer' }}
 							>
 								<i className="fas fa-calendar-days" />
 								<span className={styles.navLabel}>Attendances</span>
-								{(isMobile || !isClosed) && (
+								{(isMobile || !isSidebarClosed) && (
 									<i
 										className={`fas fa-angle-down ${styles.dropdownArrow} ${
 											openSubmenu === 'attendances' ? styles.open : ''
@@ -248,7 +240,7 @@ export default function Sidebar() {
 								)}
 							</div>
 
-							{(isMobile || !isClosed) && (
+							{(isMobile || !isSidebarClosed) && (
 								<ul className={`${styles.subItem} ${openSubmenu === 'attendances' ? styles.open : ''}`}>
 									<li>
 										<Link to="/attendances" onClick={handleLinkClick}>
@@ -263,7 +255,7 @@ export default function Sidebar() {
 								</ul>
 							)}
 
-							{!isMobile && isClosed && (
+							{!isMobile && isSidebarClosed && (
 								<div className={styles.hoverTooltip}>
 									<div className={styles.tooltipTitle}>Attendances</div>
 									<div className={styles.tooltipItem}>
@@ -290,7 +282,7 @@ export default function Sidebar() {
 								<i className="fas fa-user" />
 								<span className={styles.navLabel}>Profile</span>
 							</Link>
-							{!isMobile && isClosed && (
+							{!isMobile && isSidebarClosed && (
 								<div className={styles.hoverTooltip}>
 									<div className={styles.tooltipTitle}>Profile</div>
 								</div>
@@ -307,7 +299,7 @@ export default function Sidebar() {
 								<i className="fas fa-gear" />
 								<span className={styles.navLabel}>Settings</span>
 							</Link>
-							{!isMobile && isClosed && (
+							{!isMobile && isSidebarClosed && (
 								<div className={styles.hoverTooltip}>
 									<div className={styles.tooltipTitle}>Settings</div>
 								</div>
