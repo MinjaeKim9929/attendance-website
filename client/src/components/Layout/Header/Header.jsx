@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../Button/Button';
 import styles from './Header.module.css';
+import { useAuth } from '../../../context/AuthContext';
 
 export default function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const { isAuthenticated } = useAuth();
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
@@ -26,18 +28,30 @@ export default function Header() {
 					</li>
 					<li>Features</li>
 					<li>About</li>
-					<li>
-						<Link to="/login" className={styles.navLink}>
-							Login
-						</Link>
-					</li>
-					<li>
-						<Link to="/signup">
-							<Button variant="primary" size="medium">
-								Sign Up
-							</Button>
-						</Link>
-					</li>
+					{isAuthenticated ? (
+						<li>
+							<Link to="/console/home">
+								<Button variant="primary" size="medium">
+									Go to console
+								</Button>
+							</Link>
+						</li>
+					) : (
+						<>
+							<li>
+								<Link to="/login" className={styles.navLink}>
+									Login
+								</Link>
+							</li>
+							<li>
+								<Link to="/signup">
+									<Button variant="primary" size="medium">
+										Sign Up
+									</Button>
+								</Link>
+							</li>
+						</>
+					)}
 				</ul>
 
 				<button
@@ -55,18 +69,30 @@ export default function Header() {
 				<ul>
 					<li>Features</li>
 					<li>About</li>
-					<li>
-						<Link to="/login" className={styles.navLink}>
-							Login
-						</Link>
-					</li>
-					<li>
-						<Link to="/signup">
-							<Button variant="primary" size="medium">
-								Sign Up
-							</Button>
-						</Link>
-					</li>
+					{isAuthenticated ? (
+						<li>
+							<Link to="/console/dashboard">
+								<Button variant="primary" size="medium">
+									Go to console
+								</Button>
+							</Link>
+						</li>
+					) : (
+						<>
+							<li>
+								<Link to="/login" className={styles.navLink}>
+									Login
+								</Link>
+							</li>
+							<li>
+								<Link to="/signup">
+									<Button variant="primary" size="medium">
+										Sign Up
+									</Button>
+								</Link>
+							</li>
+						</>
+					)}
 				</ul>
 			</div>
 		</header>

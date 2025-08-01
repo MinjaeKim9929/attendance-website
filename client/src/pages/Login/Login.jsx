@@ -19,7 +19,7 @@ export default function Login() {
 	// Redirect if already authenticated
 	useEffect(() => {
 		if (isAuthenticated) {
-			const from = location.state?.from?.pathname || '/console/dashboard';
+			const from = location.state?.from?.pathname || '/console/home';
 			navigate(from, { replace: true });
 		}
 	}, [isAuthenticated, navigate, location]);
@@ -74,7 +74,7 @@ export default function Login() {
 		const result = await login(formData.email, formData.password);
 
 		if (result.success) {
-			const from = location.state?.from?.pathname || '/console/dashboard';
+			const from = location.state?.from?.pathname || '/console/home';
 			navigate(from, { replace: true });
 		}
 		// Error is handled by the auth context

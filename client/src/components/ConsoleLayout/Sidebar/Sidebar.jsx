@@ -119,7 +119,6 @@ export default function Sidebar() {
 			setOpenSubmenu(null);
 		} else {
 			setIsSidebarClosed((prev) => !prev);
-			// Close all submenus when sidebar is toggled
 			setOpenSubmenu(null);
 		}
 	};
