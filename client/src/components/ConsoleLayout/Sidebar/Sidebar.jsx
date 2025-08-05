@@ -224,7 +224,7 @@ export default function Sidebar() {
 						{/* Attendances */}
 						<li className={styles.navItem}>
 							<div
-								className={`${styles.navLink} ${isActive('/attendances') ? styles.active : ''}`}
+								className={`${styles.navLink} ${isActive('/console/attendances') ? styles.active : ''}`}
 								onClick={(event) => handleSubmenuToggle('attendances', event)}
 								style={{ cursor: !isMobile && isSidebarClosed ? 'default' : 'pointer' }}
 							>
@@ -242,12 +242,12 @@ export default function Sidebar() {
 							{(isMobile || !isSidebarClosed) && (
 								<ul className={`${styles.subItem} ${openSubmenu === 'attendances' ? styles.open : ''}`}>
 									<li>
-										<Link to="/attendances" onClick={handleLinkClick}>
+										<Link to="/console/attendances" onClick={handleLinkClick}>
 											View Attendances
 										</Link>
 									</li>
 									<li>
-										<Link to="/attendances/add" onClick={handleLinkClick}>
+										<Link to="/console/attendances/add" onClick={handleLinkClick}>
 											Add Attendance
 										</Link>
 									</li>
