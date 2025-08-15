@@ -71,10 +71,23 @@ const userSchema = mongoose.Schema(
 				},
 			},
 		],
+		events: [
+			{
+				eventId: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'Event',
+					required: true,
+				},
+			},
+		],
 		preferences: {
+			language: {
+				type: String,
+				default: 'english',
+			},
 			timezone: {
 				type: String,
-				default: 'EDT',
+				default: 'GMT',
 			},
 			notifications: {
 				email: {
@@ -92,6 +105,10 @@ const userSchema = mongoose.Schema(
 					max: [1440, 'Reminder minutes cannot exceed 24 hours'],
 				},
 			},
+		},
+		isActive: {
+			type: Boolean,
+			default: true,
 		},
 	},
 	{
