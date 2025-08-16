@@ -20,6 +20,8 @@ const userSchema = mongoose.Schema(
 			unique: true,
 			lowercase: true,
 			trim: true,
+			match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email'],
+			index: true,
 		},
 		password: {
 			type: String,
@@ -35,59 +37,21 @@ const userSchema = mongoose.Schema(
 			type: String,
 			default: null,
 		},
-		organizations: [
-			{
-				organizationId: {
-					type: mongoose.Schema.Types.ObjectId,
-					ref: 'Organization',
-					required: true,
-				},
-				role: {
-					type: String,
-					enum: ['admin', 'member', 'moderator'],
-					default: 'member',
-				},
-				joinAt: {
-					type: Date,
-					default: Date.now,
-				},
-			},
-		],
-		groups: [
-			{
-				groupId: {
-					type: mongoose.Schema.Types.ObjectId,
-					ref: 'Group',
-					required: true,
-				},
-				role: {
-					type: String,
-					enum: ['moderator', 'member'],
-					default: 'member',
-				},
-				joinAt: {
-					type: Date,
-					default: Date.now,
-				},
-			},
-		],
-		events: [
-			{
-				eventId: {
-					type: mongoose.Schema.Types.ObjectId,
-					ref: 'Event',
-					required: true,
-				},
-			},
-		],
 		preferences: {
 			language: {
 				type: String,
-				default: 'english',
+				default: 'en',
+				enum: ['en', 'ko', 'es', 'fr', 'de', 'ja'],
 			},
 			timezone: {
 				type: String,
-				default: 'GMT',
+				default: 'GMT-04:00',
+				validate: {
+					validator: function (v) {
+						return /^GMT[+-]\d{2}:\d{2}$/.test(v);
+					},
+					message: 'Invalid timezone format. Use GMT±HH:MM',
+				},
 			},
 			notifications: {
 				email: {
@@ -98,6 +62,10 @@ const userSchema = mongoose.Schema(
 					type: Boolean,
 					default: true,
 				},
+				sms: {
+					type: Boolean,
+					default: false,
+				},
 				reminderMinutes: {
 					type: Number,
 					default: 15,
@@ -105,6 +73,23 @@ const userSchema = mongoose.Schema(
 					max: [1440, 'Reminder minutes cannot exceed 24 hours'],
 				},
 			},
+			theme: {
+				type: String,
+				enum: ['light', 'dark', 'auto'],
+				default: 'auto',
+			},
+		},
+		phoneNumber: {
+			type: String,
+			trim: true,
+			match: [/^\+?[1-9]\d{1,14}$/, 'Please enter a valid phone number'],
+		},
+		lastLoginAt: {
+			type: Date,
+		},
+		emailVerified: {
+			type: Boolean,
+			default: false,
 		},
 		isActive: {
 			type: Boolean,
@@ -118,6 +103,12 @@ const userSchema = mongoose.Schema(
 	}
 );
 
+// Indexes for better performance
+userSchema.index({ email: 1 });
+userSchema.index({ isActive: 1 });
+userSchema.index({ lastLoginAt: -1 });
+
+// Virtual fields
 userSchema.virtual('fullName').get(function () {
 	return `${this.firstName} ${this.lastName}`.trim();
 });
@@ -133,6 +124,28 @@ userSchema.virtual('age').get(function () {
 	}
 
 	return age;
+});
+
+// Virtual populate for relationships
+userSchema.virtual('organizations', {
+	ref: 'Membership',
+	localField: '_id',
+	foreignField: 'userId',
+	match: { entityType: 'organization', status: 'active' },
+});
+
+userSchema.virtual('groups', {
+	ref: 'Membership',
+	localField: '_id',
+	foreignField: 'userId',
+	match: { entityType: 'group', status: 'active' },
+});
+
+userSchema.virtual('events', {
+	ref: 'Membership',
+	localField: '_id',
+	foreignField: 'userId',
+	match: { entityType: 'event', status: 'active' },
 });
 
 module.exports = mongoose.model('User', userSchema);
