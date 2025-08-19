@@ -21,6 +21,8 @@ mongoose
 
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/groups', require('./routes/groupRoutes'));
+app.use('/api/organizations', require('./routes/organizationRoutes'));
 
 // Health check route
 app.get('/', (req, res) => {
