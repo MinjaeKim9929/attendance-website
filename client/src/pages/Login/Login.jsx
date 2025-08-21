@@ -6,23 +6,27 @@ import { useAuth } from '../../context/AuthContext';
 import styles from './Login.module.css';
 
 export default function Login() {
-	const [formData, setFormData] = useState({
-		email: '',
-		password: '',
-	});
-	const [errors, setErrors] = useState({});
-
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { login, isLoading, isAuthenticated, error, clearError } = useAuth();
 
+	const [formData, setFormData] = useState({
+		email: '',
+		password: '',
+		rememberMe: false,
+	});
+	const [errors, setErrors] = useState({});
+	const [showPassword, setShowPassword] = useState(false);
+
+	// Get the redirect path from location state or default to home
+	const from = location.state?.from?.pathname || '/console/home';
+
 	// Redirect if already authenticated
 	useEffect(() => {
 		if (isAuthenticated) {
-			const from = location.state?.from?.pathname || '/console/home';
 			navigate(from, { replace: true });
 		}
-	}, [isAuthenticated, navigate, location]);
+	}, [isAuthenticated, navigate, from]);
 
 	// Clear errors when component mounts
 	useEffect(() => {
@@ -30,11 +34,12 @@ export default function Login() {
 	}, [clearError]);
 
 	const handleChange = (e) => {
-		const { name, value } = e.target;
+		const { name, value, type, checked } = e.target;
 		setFormData((prev) => ({
 			...prev,
-			[name]: value,
+			[name]: type === 'checkbox' ? checked : value,
 		}));
+
 		// Clear error when user starts typing
 		if (errors[name]) {
 			setErrors((prev) => ({
@@ -42,6 +47,7 @@ export default function Login() {
 				[name]: '',
 			}));
 		}
+
 		// Clear auth error
 		if (error) {
 			clearError();
@@ -69,15 +75,25 @@ export default function Login() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		if (!validateForm()) return;
 
-		const result = await login(formData.email, formData.password);
+		const loginData = {
+			email: formData.email.toLowerCase().trim(),
+			password: formData.password,
+			rememberMe: formData.rememberMe,
+		};
+
+		const result = await login(loginData);
 
 		if (result.success) {
-			const from = location.state?.from?.pathname || '/console/home';
 			navigate(from, { replace: true });
 		}
 		// Error is handled by the auth context
+	};
+
+	const togglePasswordVisibility = () => {
+		setShowPassword(!showPassword);
 	};
 
 	return (
@@ -86,7 +102,7 @@ export default function Login() {
 				<div className={styles.loginCard}>
 					<div className={styles.loginHeader}>
 						<h1>Welcome Back</h1>
-						<p>Sign in to your attendance account</p>
+						<p>Sign in to your attendance tracking account</p>
 					</div>
 
 					<form onSubmit={handleSubmit} className={styles.loginForm}>
@@ -98,26 +114,57 @@ export default function Login() {
 								name="email"
 								value={formData.email}
 								onChange={handleChange}
-								className={errors.email ? `${styles.error}` : ''}
+								className={errors.email ? styles.error : ''}
 								placeholder="Enter your email"
 								disabled={isLoading}
+								autoComplete="email"
 							/>
 							{errors.email && <span className={styles.errorMessage}>{errors.email}</span>}
 						</div>
 
 						<div className={styles.formGroup}>
 							<label htmlFor="password">Password</label>
-							<input
-								type="password"
-								id="password"
-								name="password"
-								value={formData.password}
-								onChange={handleChange}
-								className={errors.password ? `${styles.error}` : ''}
-								placeholder="Enter your password"
-								disabled={isLoading}
-							/>
+							<div className={styles.passwordInputContainer}>
+								<input
+									type={showPassword ? 'text' : 'password'}
+									id="password"
+									name="password"
+									value={formData.password}
+									onChange={handleChange}
+									className={errors.password ? styles.error : ''}
+									placeholder="Enter your password"
+									disabled={isLoading}
+									autoComplete="current-password"
+								/>
+								<button
+									type="button"
+									className={styles.passwordToggle}
+									onClick={togglePasswordVisibility}
+									disabled={isLoading}
+									aria-label={showPassword ? 'Hide password' : 'Show password'}
+								>
+									<i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+								</button>
+							</div>
 							{errors.password && <span className={styles.errorMessage}>{errors.password}</span>}
+						</div>
+
+						<div className={styles.formOptions}>
+							<label className={styles.checkboxContainer}>
+								<input
+									type="checkbox"
+									name="rememberMe"
+									checked={formData.rememberMe}
+									onChange={handleChange}
+									disabled={isLoading}
+								/>
+								<span className={styles.checkmark}></span>
+								Remember me
+							</label>
+
+							<Link to="/forgot-password" className={styles.forgotPassword}>
+								Forgot password?
+							</Link>
 						</div>
 
 						{error && <div className={`${styles.errorMessage} ${styles.submitError}`}>{error}</div>}
