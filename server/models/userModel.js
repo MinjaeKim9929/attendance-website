@@ -106,6 +106,8 @@ const userSchema = mongoose.Schema(
 // Indexes for better performance
 userSchema.index({ isActive: 1 });
 userSchema.index({ lastLoginAt: -1 });
+userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ 'contactInfo.phone': 1 }, { sparse: true });
 
 // Virtual fields
 userSchema.virtual('fullName').get(function () {
