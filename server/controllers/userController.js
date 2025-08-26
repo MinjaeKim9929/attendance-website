@@ -11,4 +11,4 @@ const loginUser = asyncHandler(async (req, res) => {
 	} catch (err) {}
 });
 
-module.exports = {};
+module.exports = { loginUser };

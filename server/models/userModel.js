@@ -104,7 +104,6 @@ const userSchema = mongoose.Schema(
 );
 
 // Indexes for better performance
-userSchema.index({ email: 1 });
 userSchema.index({ isActive: 1 });
 userSchema.index({ lastLoginAt: -1 });
 

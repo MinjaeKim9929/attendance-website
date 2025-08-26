@@ -145,7 +145,6 @@ const organizationSchema = mongoose.Schema(
 );
 
 // Indexes for better performance
-organizationSchema.index({ organizationCode: 1 });
 organizationSchema.index({ name: 'text', description: 'text' });
 organizationSchema.index({ isActive: 1, isVerified: 1 });
 organizationSchema.index({ 'subscription.status': 1, 'subscription.endDate': 1 });

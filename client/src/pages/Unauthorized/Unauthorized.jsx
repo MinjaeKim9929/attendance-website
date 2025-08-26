@@ -28,7 +28,7 @@ export default function Unauthorized() {
 					</p>
 
 					<div className={styles.errorActions}>
-						<Link to="/dashboard">
+						<Link to="/console">
 							<Button variant="primary" size="large">
 								Go to Dashboard
 							</Button>
